@@ -5,3 +5,6 @@ compiled/
 Applications/
 node_modules/
 typings/
+app/js/
+app/css/
+app/main.js

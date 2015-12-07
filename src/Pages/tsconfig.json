@@ -13,7 +13,7 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "outFile": "../../compiled/main-page.js"
+        "outDir": "../../compiled/"
     },
     "filesGlob": [
         "../../typings/*.d.ts",

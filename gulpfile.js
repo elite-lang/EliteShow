@@ -47,21 +47,11 @@ gulp.task("sass", function() {
         .pipe(gulp.dest(options.sass.target.directory))
 });
 
-gulp.task("copy-mainjs", function() {
-    return gulp.src('./compiled/Main/*.js').pipe(gulp.dest('./app/Main'));
-});
-
 gulp.task("clean", function() {
     return require("del").sync([options.typeScript.target + "/**"]);
 });
 
 gulp.task("build", ["typescript", "typescript-main", "sass"]);
-
-gulp.task("compile-tests", function() {
-    return gulp.src(options.test.source)
-        .pipe($.typescript(options.typeScript.config))
-        .pipe(gulp.dest(options.test.target))
-});
 
 gulp.task("default", function() {
     return runSequence(
