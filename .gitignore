@@ -1,0 +1,7 @@
+*.*~
+*.fuse*
+electron-packager/
+compiled/
+Applications/
+node_modules/
+typings/

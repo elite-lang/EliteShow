@@ -1,0 +1,59 @@
+{
+  "name": "elite-show",
+  "productName": "EliteShow",
+  "version": "0.1.0",
+  "description": "编译原理语法分析可视化工具",
+  "main": "app/main.js",
+  "authors": [
+    "Sun Xiaofan <sun_xfancy@163.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sunxfancy/EliteShow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sunxfancy/EliteShow/issues"
+  },
+  "keywords": [
+    "elite",
+    "show",
+    "compiler"
+  ],
+  "electronVersion": "0.35.0",
+  "dependencies": {
+    "react": "0.14.3",
+    "react-dom": "0.14.3",
+    "font-awesome": "4.4.0",
+    "antd": "~0.10.4"
+  },
+  "devDependencies": {
+    "electron-packager": "5.1.1",
+    "electron-prebuilt": "0.35.0",
+    "electron-rebuild": "1.0.2",
+    "gulp": "3.9.0",
+    "gulp-babel": "6.1.1",
+    "gulp-cached": "1.1.0",
+    "gulp-concat": "2.6.0",
+    "gulp-livereload": "3.8.1",
+    "gulp-load-plugins": "1.1.0",
+    "gulp-sass": "2.1.0",
+    "gulp-shell": "0.5.1",
+    "gulp-util": "3.0.7",
+    "typescript": "1.7.3",
+    "node-gyp": "3.2.0",
+    "npm-check-updates": "2.5.1",
+    "run-sequence": "1.1.5",
+    "react-tools": "0.13.3",
+    "tsd": "0.6.5"
+  },
+  "scripts": {
+    "preinstall": "npm prune",
+    "start": "gulp",
+    "package": "gulp build && electron-packager ./app \"$npm_package_productName\" --overwrite --platform=linux --arch=x64 --version=$npm_package_electronVersion --out=./Applications --icon=./elite.ico",
+    "update-typings": "tsd update --save --overwrite",
+    "update-dependencies": "ncu -u",
+    "antd-dev": "antd server",
+    "antd-build": "antd build"
+  },
+  "license": "MIT"
+}
