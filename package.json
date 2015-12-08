@@ -24,7 +24,8 @@
     "react": "0.14.3",
     "react-dom": "0.14.3",
     "antd": "~0.10.4",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "rc-animate": "~2.0.2"
   },
   "devDependencies": {
     "electron-packager": "5.1.1",

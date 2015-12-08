@@ -25,7 +25,12 @@
     "buildOnSave": false,
     "files": [
         "../../typings/tsd.d.ts",
-        "main-page.tsx"
+        "about-page.tsx",
+        "code-page.tsx",
+        "config-page.tsx",
+        "main-menu.tsx",
+        "main-page.tsx",
+        "show-page.tsx"
     ],
     "atom": {
         "rewriteTsconfig": true

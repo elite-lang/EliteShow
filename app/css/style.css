@@ -2079,3 +2079,14 @@
 
 .fa-percent:before {
   content: ""; }
+
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #eee; }
+
+.container-left {
+  height: 100vh;
+  background-color: #404040; }
