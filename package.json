@@ -23,8 +23,8 @@
   "dependencies": {
     "react": "0.14.3",
     "react-dom": "0.14.3",
-    "font-awesome": "4.4.0",
-    "antd": "~0.10.4"
+    "antd": "~0.10.4",
+    "font-awesome": "~4.5.0"
   },
   "devDependencies": {
     "electron-packager": "5.1.1",
