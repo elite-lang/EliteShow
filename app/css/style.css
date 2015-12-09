@@ -2090,3 +2090,11 @@
 .container-left {
   height: 100vh;
   background-color: #404040; }
+
+.code-page-header {
+  height: 20px;
+  padding: 5px; }
+
+.code-page-edit {
+  height: 100vh;
+  margin-top: 20px; }
