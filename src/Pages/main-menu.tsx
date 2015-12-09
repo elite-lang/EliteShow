@@ -1,3 +1,4 @@
+"use strict";
 import * as React from 'react';
 const Animate = require('rc-animate');
 const Menu = require('antd/lib/menu');

@@ -1,150 +1,139 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var React = require('react');
-var Row = require('antd/lib/row');
-var Col = require('antd/lib/col');
-var Icon = require('antd/lib/icon');
-var AboutPage = (function (_super) {
-    __extends(AboutPage, _super);
-    function AboutPage() {
-        _super.apply(this, arguments);
-    }
-    AboutPage.prototype.render = function () {
+const Row = require('antd/lib/row');
+const Col = require('antd/lib/col');
+const Icon = require('antd/lib/icon');
+class AboutPage extends React.Component {
+    render() {
         return React.createElement(Row, {"type": "flex", "justify": "center", "align": "middle", "className": 'about-container-all'}, React.createElement(Col, null, React.createElement("h1", null, "Elite Show v1.0"), React.createElement("h3", null, "获取源码 : ", React.createElement(Icon, {"type": "github"}), " ", React.createElement("a", {"href": "https://github.com/sunxfancy/EliteShow"}, "EliteShow on Github")), React.createElement("h3", null, "官方网站 : ", React.createElement(Icon, {"type": "home"}), " ", React.createElement("a", {"href": "https://github.com/sunxfancy/EliteShow"}, "EliteShow on Github")), React.createElement("h3", null, "由 ", React.createElement("a", {"href": 'http://sunxfancy.github.io/'}, "西风逍遥游"), " 提供")));
-    };
-    return AboutPage;
-})(React.Component);
+    }
+}
 exports.AboutPage = AboutPage;
 
 },{"antd/lib/col":12,"antd/lib/icon":16,"antd/lib/row":22,"react":288}],2:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var React = require('react');
-var AceEditor = require('react-ace');
-var Button = require('antd/lib/button');
-var Icon = require('antd/lib/icon');
-var ButtonGroup = Button.Group;
-var ipcRenderer = require('electron').ipcRenderer;
-var CodeEditor = (function (_super) {
-    __extends(CodeEditor, _super);
-    function CodeEditor(props) {
-        _super.call(this, props);
+const AceEditor = require('react-ace');
+const Button = require('antd/lib/button');
+const Icon = require('antd/lib/icon');
+const ButtonGroup = Button.Group;
+class CodeEditor extends React.Component {
+    constructor(props) {
+        super(props);
     }
-    CodeEditor.prototype.onOpenFile = function () {
-    };
-    CodeEditor.prototype.onSaveFile = function () {
-    };
-    CodeEditor.prototype.render = function () {
-        return React.createElement("div", null, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h2", null, this.props.title, "   ", React.createElement(ButtonGroup, null, React.createElement(Button, {"type": "primary"}, React.createElement(Icon, {"type": "folder-open"}), "打开"), React.createElement(Button, null, React.createElement(Icon, {"type": "save"}), "另存为")))), React.createElement("div", {"className": "code-page-edit"}, React.createElement(AceEditor, {"width": "100%", "height": "100vh", "mode": "c_cpp", "theme": "monokai", "onChange": this.props.onChange, "name": this.props.name, "fontSize": 18, "editorProps": { $blockScrolling: true }})));
-    };
-    return CodeEditor;
-})(React.Component);
+    onOpenFile() {
+    }
+    onSaveFile() {
+    }
+    render() {
+        return React.createElement("div", {"className": 'editor-container'}, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h2", null, this.props.title, "   ", React.createElement(ButtonGroup, null, React.createElement(Button, {"type": "primary"}, React.createElement(Icon, {"type": "folder-open"}), "打开"), React.createElement(Button, null, React.createElement(Icon, {"type": "save"}), "另存为")))), React.createElement("div", {"className": "code-page-edit"}, React.createElement(AceEditor, {"width": "100%", "height": "100%", "mode": "c_cpp", "theme": "monokai", "onChange": this.props.onChange, "name": this.props.name, "fontSize": 18, "editorProps": { $blockScrolling: true }})));
+    }
+}
 exports.CodeEditor = CodeEditor;
 
-},{"antd/lib/button":11,"antd/lib/icon":16,"electron":undefined,"react":288,"react-ace":129}],3:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+},{"antd/lib/button":11,"antd/lib/icon":16,"react":288,"react-ace":129}],3:[function(require,module,exports){
+"use strict";
 var React = require('react');
 var brace = require('brace');
 var AceEditor = require('react-ace');
 require('brace/mode/c_cpp');
 require('brace/theme/monokai');
-var Button = require('antd/lib/button');
-var Icon = require('antd/lib/icon');
-var ButtonGroup = Button.Group;
-var CodePage = (function (_super) {
-    __extends(CodePage, _super);
-    function CodePage() {
-        _super.apply(this, arguments);
+const Button = require('antd/lib/button');
+const Icon = require('antd/lib/icon');
+const ButtonGroup = Button.Group;
+const rf = require("fs");
+const remote = require('remote');
+const dialog = remote.require('dialog');
+class CodePage extends React.Component {
+    constructor() {
+        super();
+        this.setCodeData = this.setCodeData.bind(this);
+        this.onOpenFile = this.onOpenFile.bind(this);
+        this.state = { code_data: '' };
     }
-    CodePage.prototype.onChange = function (newValue) {
-        console.log('change', newValue);
-    };
-    CodePage.prototype.render = function () {
-        return React.createElement("div", null, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h2", null, "代码 coding", React.createElement(ButtonGroup, null, React.createElement(Button, {"type": "primary"}, React.createElement(Icon, {"type": "folder-open"}), "打开"), React.createElement(Button, null, React.createElement(Icon, {"type": "save"}), "另存为")))), React.createElement("div", {"className": "code-page-edit"}, React.createElement(AceEditor, {"width": "100%", "height": "100vh", "mode": "c_cpp", "theme": "monokai", "onChange": this.onChange, "name": "UNIQUE_ID_OF_DIV", "fontSize": 18, "editorProps": { $blockScrolling: true }})));
-    };
-    return CodePage;
-})(React.Component);
+    setCodeData(e) {
+        this.setState({ code_data: e });
+    }
+    onChange(newValue) {
+    }
+    onOpenFile() {
+        var that = this;
+        dialog.showOpenDialog((fileNames) => {
+            if (fileNames === undefined)
+                return;
+            var fileName = fileNames[0];
+            rf.readFile(fileName, 'utf-8', (err, data) => {
+                if (err) {
+                    console.log("error");
+                }
+                else {
+                    console.log(data);
+                    console.log(that);
+                    that.setCodeData(data);
+                }
+            });
+        });
+    }
+    onSaveFile() {
+        console.log(this.state.code_data);
+    }
+    render() {
+        return React.createElement("div", {"className": "page-container"}, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h2", null, "代码 coding   ", React.createElement(ButtonGroup, null, React.createElement(Button, {"onClick": this.onOpenFile, "type": "primary"}, React.createElement(Icon, {"type": "folder-open"}), "打开"), React.createElement(Button, {"onClick": this.onSaveFile}, React.createElement(Icon, {"type": "save"}), "另存为")))), React.createElement("div", {"className": "code-page-edit"}, React.createElement(AceEditor, {"width": "100%", "height": "100%", "mode": "c_cpp", "theme": "monokai", "value": this.state.code_data, "name": "UNIQUE_ID_OF_DIV", "fontSize": 18, "editorProps": { $blockScrolling: true }})));
+    }
+}
 exports.CodePage = CodePage;
 
-},{"antd/lib/button":11,"antd/lib/icon":16,"brace":116,"brace/mode/c_cpp":117,"brace/theme/monokai":119,"react":288,"react-ace":129}],4:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+},{"antd/lib/button":11,"antd/lib/icon":16,"brace":116,"brace/mode/c_cpp":117,"brace/theme/monokai":119,"fs":undefined,"react":288,"react-ace":129,"remote":undefined}],4:[function(require,module,exports){
+"use strict";
 var React = require('react');
-var Row = require('antd/lib/row');
-var Col = require('antd/lib/col');
+const Row = require('antd/lib/row');
+const Col = require('antd/lib/col');
+const Icon = require('antd/lib/icon');
 var code_editor_1 = require('./code-editor');
-var ConfigPage = (function (_super) {
-    __extends(ConfigPage, _super);
-    function ConfigPage() {
-        _super.apply(this, arguments);
+class ConfigPage extends React.Component {
+    onLeftChange(e) {
     }
-    ConfigPage.prototype.onLeftChange = function (e) {
-    };
-    ConfigPage.prototype.onRightChange = function (e) {
-    };
-    ConfigPage.prototype.render = function () {
-        return React.createElement("div", null, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h1", null, "配置管理")), React.createElement(Row, {"className": "code-page-edit"}, React.createElement(Col, {"span": '12'}, React.createElement(code_editor_1.CodeEditor, {"name": 'left-code-editor', "title": '词法分析配置', "onChange": this.onLeftChange})), React.createElement(Col, {"span": '12'}, React.createElement(code_editor_1.CodeEditor, {"name": 'right-code-editor', "title": '语法分析配置', "onChange": this.onRightChange}))));
-    };
-    return ConfigPage;
-})(React.Component);
+    onRightChange(e) {
+    }
+    render() {
+        return React.createElement("div", {"className": "page-container"}, React.createElement("div", {"className": 'code-page-header'}, React.createElement("h1", null, React.createElement(Icon, {"type": "setting"}), " 配置管理")), React.createElement(Row, {"className": "config-page-edit"}, React.createElement(Col, {"span": '12', "className": 'editor-container'}, React.createElement(code_editor_1.CodeEditor, {"name": 'left-code-editor', "title": '词法分析配置', "onChange": this.onLeftChange})), React.createElement(Col, {"span": '12', "className": 'editor-container'}, React.createElement(code_editor_1.CodeEditor, {"name": 'right-code-editor', "title": '语法分析配置', "onChange": this.onRightChange}))));
+    }
+}
 exports.ConfigPage = ConfigPage;
 
-},{"./code-editor":2,"antd/lib/col":12,"antd/lib/row":22,"react":288}],5:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+},{"./code-editor":2,"antd/lib/col":12,"antd/lib/icon":16,"antd/lib/row":22,"react":288}],5:[function(require,module,exports){
+"use strict";
 var React = require('react');
-var Animate = require('rc-animate');
-var Menu = require('antd/lib/menu');
-var Icon = require('antd/lib/icon');
-var Item = Menu.Item;
-var MainMenu = (function (_super) {
-    __extends(MainMenu, _super);
-    function MainMenu(props) {
-        _super.call(this, props);
+const Animate = require('rc-animate');
+const Menu = require('antd/lib/menu');
+const Icon = require('antd/lib/icon');
+const Item = Menu.Item;
+class MainMenu extends React.Component {
+    constructor(props) {
+        super(props);
         this.prop = props;
         this.state = this.getInitial();
         this.handleClick = this.handleClick.bind(this);
     }
-    MainMenu.prototype.getInitial = function () {
+    getInitial() {
         return { current: '1' };
-    };
-    MainMenu.prototype.handleClick = function (e) {
+    }
+    handleClick(e) {
         if (e.key == '0') {
             return;
         }
         this.setState({ current: e.key });
         this.prop.onUpdate(e.key);
-    };
-    MainMenu.prototype.render = function () {
+    }
+    render() {
         return React.createElement(Menu, {"onClick": this.handleClick, "selectedKeys": [this.state.current], "theme": 'dark', "mode": "inline"}, React.createElement(Item, {"key": "0", "className": "menu-logo-outer"}, React.createElement("div", {"className": "menu-logo-middle"}, React.createElement("img", {"src": "img/elite.png", "height": "60%", "alt": "elite-logo"})), " Elite Show"), React.createElement(Item, {"key": "1"}, React.createElement(Icon, {"type": "code"}), "分析器配置"), React.createElement(Item, {"key": "2"}, React.createElement(Icon, {"type": "file-text"}), "源代码编辑"), React.createElement(Item, {"key": "3"}, React.createElement(Icon, {"type": "desktop"}), "过程展示"), React.createElement(Item, {"key": "4"}, React.createElement(Icon, {"type": "setting"}), "选项"), React.createElement(Item, {"key": "5"}, React.createElement(Icon, {"type": "info-circle"}), "关于"));
-    };
-    return MainMenu;
-})(React.Component);
+    }
+}
 exports.MainMenu = MainMenu;
 
 },{"antd/lib/icon":16,"antd/lib/menu":20,"rc-animate":124,"react":288}],6:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Datepicker = require('antd/lib/datepicker');
@@ -157,21 +146,20 @@ var code_page_1 = require('./code-page');
 var show_page_1 = require('./show-page');
 var setting_page_1 = require('./setting-page');
 var about_page_1 = require('./about-page');
-var MainPage = (function (_super) {
-    __extends(MainPage, _super);
-    function MainPage(id) {
-        _super.call(this);
+class MainPage extends React.Component {
+    constructor(id) {
+        super();
         this.id = id;
         this.state = { nowPage: 1 };
         this.onMenuChange = this.onMenuChange.bind(this);
     }
-    MainPage.prototype.PageRender = function () {
+    PageRender() {
         ReactDOM.render(React.createElement(MainPage, null), document.getElementById(this.id));
-    };
-    MainPage.prototype.onMenuChange = function (e) {
+    }
+    onMenuChange(e) {
         this.setState({ nowPage: +e });
-    };
-    MainPage.prototype.renderNowPage = function (num) {
+    }
+    renderNowPage(num) {
         switch (num) {
             case 1: return React.createElement(config_page_1.ConfigPage, {"key": "page1"});
             case 2: return React.createElement(code_page_1.CodePage, {"key": "page2"});
@@ -179,53 +167,34 @@ var MainPage = (function (_super) {
             case 4: return React.createElement(setting_page_1.SettingPage, {"key": "page4"});
             case 5: return React.createElement(about_page_1.AboutPage, {"key": "page5"});
         }
-    };
-    MainPage.prototype.render = function () {
-        return (React.createElement("div", {"className": "container"}, React.createElement(Row, null, React.createElement(Col, {"span": '4', "className": 'container-left'}, React.createElement(main_menu_1.MainMenu, {"onUpdate": this.onMenuChange})), React.createElement(Col, {"span": '20'}, React.createElement(QueueAnim, {"className": "demo-content", "type": ['bottom', 'top'], "delay": [500, 0], "duration": 300}, this.renderNowPage(this.state.nowPage))))));
-    };
-    return MainPage;
-})(React.Component);
+    }
+    render() {
+        return (React.createElement("div", {"className": "container"}, React.createElement(Row, null, React.createElement(Col, {"span": '4', "className": 'container-left'}, React.createElement(main_menu_1.MainMenu, {"onUpdate": this.onMenuChange})), React.createElement(Col, {"span": '20'}, React.createElement(QueueAnim, {"type": ['bottom', 'top'], "delay": [400, 0], "duration": 300}, this.renderNowPage(this.state.nowPage))))));
+    }
+}
 window.onload = function () {
-    var main = new MainPage('main_page');
+    let main = new MainPage('main_page');
     main.PageRender();
 };
 
 },{"./about-page":1,"./code-page":3,"./config-page":4,"./main-menu":5,"./setting-page":7,"./show-page":8,"antd/lib/col":12,"antd/lib/datepicker":14,"antd/lib/queue-anim":21,"antd/lib/row":22,"react":288,"react-dom":132}],7:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var React = require('react');
-var SettingPage = (function (_super) {
-    __extends(SettingPage, _super);
-    function SettingPage() {
-        _super.apply(this, arguments);
+class SettingPage extends React.Component {
+    render() {
+        return React.createElement("div", {"className": "page-container"}, React.createElement("h1", null, "设置"));
     }
-    SettingPage.prototype.render = function () {
-        return React.createElement("div", null, React.createElement("h1", null, "设置"));
-    };
-    return SettingPage;
-})(React.Component);
+}
 exports.SettingPage = SettingPage;
 
 },{"react":288}],8:[function(require,module,exports){
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var React = require('react');
-var ShowPage = (function (_super) {
-    __extends(ShowPage, _super);
-    function ShowPage() {
-        _super.apply(this, arguments);
-    }
-    ShowPage.prototype.render = function () {
+class ShowPage extends React.Component {
+    render() {
         return React.createElement("div", null, React.createElement("h1", null, "过程展示"));
-    };
-    return ShowPage;
-})(React.Component);
+    }
+}
 exports.ShowPage = ShowPage;
 
 },{"react":288}],9:[function(require,module,exports){

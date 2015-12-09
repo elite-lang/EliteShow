@@ -1,3 +1,4 @@
+"use strict";
 import * as React from 'react';
 const Row = require('antd/lib/row');
 const Col = require('antd/lib/col');

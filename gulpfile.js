@@ -37,7 +37,9 @@ var options = {
 gulp.task("typescript", $.shell.task("tsc -p ./src/Pages/"));
 gulp.task("typescript-main", $.shell.task("tsc -p ./src/Main/"));
 
-gulp.task("browserify", $.shell.task("browserify ./compiled/main-page.js --exclude electron -o ./app/js/bundle.js"));
+gulp.task("browserify", $.shell.task("browserify ./compiled/main-page.js" +
+    " -u electron -u fs -u remote -u dialog" +
+    " -o ./app/js/bundle.js"));
 
 gulp.task("sass", function() {
     return gulp.src(options.sass.source)

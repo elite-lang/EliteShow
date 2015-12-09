@@ -1,3 +1,4 @@
+"use strict";
 import * as React from 'react';
 var ReactDOM = require('react-dom');
 var Datepicker = require('antd/lib/datepicker');
@@ -54,7 +55,7 @@ class MainPage extends React.Component<any, _MainPageState> {
                         <MainMenu onUpdate={this.onMenuChange} />
                     </Col>
                     <Col span='20'>
-                    <QueueAnim className="demo-content"
+                    <QueueAnim
                       type={['bottom', 'top']}
                       delay={[400, 0]}
                       duration={300} >

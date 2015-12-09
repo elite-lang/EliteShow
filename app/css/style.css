@@ -2091,13 +2091,25 @@
   height: 100vh;
   background-color: #404040; }
 
+.page-container {
+  padding-top: 20px;
+  height: 100vh; }
+
+.editor-container {
+  height: 100%; }
+
 .code-page-header {
-  height: 20px;
-  padding: 5px; }
+  height: 0px;
+  margin-top: 0px;
+  margin-left: 20px; }
+
+.config-page-edit {
+  height: 100%;
+  padding-top: 60px; }
 
 .code-page-edit {
-  height: 100vh;
-  margin-top: 20px; }
+  height: 100%;
+  padding-top: 40px; }
 
 .about-container-all {
   height: 100vh; }
