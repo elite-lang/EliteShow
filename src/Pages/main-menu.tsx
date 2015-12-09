@@ -30,6 +30,9 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         return {current: '1'} as _MenuState;
     }
     handleClick(e) {
+        if (e.key == '0') {
+            return
+        }
         this.setState({current: e.key} as _MenuState);
         this.prop.onUpdate(e.key)
     }
@@ -38,12 +41,14 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                      selectedKeys={[this.state.current]}
                      theme='dark'
                      mode="inline">
+            <Item key="0" className="menu-logo-outer"><div className="menu-logo-middle">
+                <img src="img/elite.png" height="60%" alt="elite-logo" /></div> Elite Show
+            </Item>
             <Item key="1"><Icon type="code" />分析器配置</Item>
             <Item key="2"><Icon type="file-text" />源代码编辑</Item>
             <Item key="3"><Icon type="desktop" />过程展示</Item>
             <Item key="4"><Icon type="setting" />选项</Item>
             <Item key="5"><Icon type="info-circle" />关于</Item>
-
         </Menu>;
     }
 }

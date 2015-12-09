@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Datepicker = require('antd/lib/datepicker');
 var Row = require('antd/lib/row');
 var Col = require('antd/lib/col');
+var QueueAnim = require('antd/lib/queue-anim');
 // var message = require('antd/lib/message');
 import { MainMenu } from './main-menu'; // 导入别的文件
 import { ConfigPage } from './config-page';
@@ -37,11 +38,11 @@ class MainPage extends React.Component<any, _MainPageState> {
     renderNowPage(num: number) {
         switch (num)
         {
-            case 1: return <ConfigPage />;
-            case 2: return <CodePage />;
-            case 3: return <ShowPage />;
-            case 4: return <SettingPage />;
-            case 5: return <AboutPage />;
+            case 1: return <ConfigPage key="page1" />;
+            case 2: return <CodePage key="page2" />;
+            case 3: return <ShowPage key="page3" />;
+            case 4: return <SettingPage key="page4" />;
+            case 5: return <AboutPage key="page5" />;
         }
     }
 
@@ -53,7 +54,12 @@ class MainPage extends React.Component<any, _MainPageState> {
                         <MainMenu onUpdate={this.onMenuChange} />
                     </Col>
                     <Col span='20'>
+                    <QueueAnim className="demo-content"
+                      type={['bottom', 'top']}
+                      delay={[400, 0]}
+                      duration={300} >
                         {this.renderNowPage(this.state.nowPage)}
+                        </QueueAnim>
                     </Col>
                 </Row>
             </div>

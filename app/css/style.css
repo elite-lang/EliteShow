@@ -2101,3 +2101,12 @@
 
 .about-container-all {
   height: 100vh; }
+
+.menu-logo-outer {
+  display: table;
+  margin-top: 15px;
+  margin-right: 0px; }
+
+.menu-logo-middle {
+  display: table-cell;
+  vertical-align: middle; }
