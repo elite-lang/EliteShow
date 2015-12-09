@@ -28,7 +28,9 @@
     "rc-animate": "~2.0.2",
     "react-ace": "~2.7.0",
     "brace": "~0.5.1",
-    "terminal-everywhere": "~0.2.0"
+    "terminal-everywhere": "~0.2.0",
+    "browserify": "~12.0.1",
+    "react-graph-vis": "0.0.3"
   },
   "devDependencies": {
     "electron-packager": "5.1.1",
@@ -54,6 +56,7 @@
     "preinstall": "npm prune",
     "start": "gulp",
     "package": "gulp build && electron-packager ./app \"$npm_package_productName\" --overwrite --platform=linux --arch=x64 --version=$npm_package_electronVersion --out=./Applications --icon=./elite.ico",
+    "package-win32": "gulp build && electron-packager ./app \"$npm_package_productName\" --overwrite --platform=win32 --arch=x64 --version=$npm_package_electronVersion --out=./Applications --icon=./elite.ico",
     "update-typings": "tsd update --save --overwrite",
     "update-dependencies": "ncu -u",
     "antd-dev": "antd server",

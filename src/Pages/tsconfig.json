@@ -26,10 +26,12 @@
     "files": [
         "../../typings/tsd.d.ts",
         "about-page.tsx",
+        "code-editor.tsx",
         "code-page.tsx",
         "config-page.tsx",
         "main-menu.tsx",
         "main-page.tsx",
+        "setting-page.tsx",
         "show-page.tsx"
     ],
     "atom": {

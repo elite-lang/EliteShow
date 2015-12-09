@@ -8,6 +8,7 @@ import { MainMenu } from './main-menu'; // 导入别的文件
 import { ConfigPage } from './config-page';
 import { CodePage } from './code-page';
 import { ShowPage } from './show-page';
+import { SettingPage } from './setting-page';
 import { AboutPage } from './about-page';
 
 
@@ -39,7 +40,8 @@ class MainPage extends React.Component<any, _MainPageState> {
             case 1: return <ConfigPage />;
             case 2: return <CodePage />;
             case 3: return <ShowPage />;
-            case 4: return <AboutPage />;
+            case 4: return <SettingPage />;
+            case 5: return <AboutPage />;
         }
     }
 

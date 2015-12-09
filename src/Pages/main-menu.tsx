@@ -1,7 +1,7 @@
 import * as React from 'react';
-var Animate = require('rc-animate');
-var Menu = require('antd/lib/menu');
-var Icon = require('antd/lib/icon');
+const Animate = require('rc-animate');
+const Menu = require('antd/lib/menu');
+const Icon = require('antd/lib/icon');
 const Item = Menu.Item;
 
 interface _MenuProps {
@@ -38,10 +38,12 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                      selectedKeys={[this.state.current]}
                      theme='dark'
                      mode="inline">
-            <Item key="1"><Icon type="code" />选项1</Item>
-            <Item key="2"><Icon type="file-text" />选项2</Item>
-            <Item key="3"><Icon type="github" />选项3</Item>
-            <Item key="4"><Icon type="setting" />选项4</Item>
+            <Item key="1"><Icon type="code" />分析器配置</Item>
+            <Item key="2"><Icon type="file-text" />源代码编辑</Item>
+            <Item key="3"><Icon type="desktop" />过程展示</Item>
+            <Item key="4"><Icon type="setting" />选项</Item>
+            <Item key="5"><Icon type="info-circle" />关于</Item>
+
         </Menu>;
     }
 }
