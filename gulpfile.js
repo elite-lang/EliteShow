@@ -55,6 +55,8 @@ gulp.task("clean", function() {
 
 gulp.task("build", ["typescript", "typescript-main", "sass"]);
 
+gulp.task("run", $.shell.task("electron ."));
+
 gulp.task("default", function() {
     return runSequence(
         "build",

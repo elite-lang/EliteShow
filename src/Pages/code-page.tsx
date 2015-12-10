@@ -15,7 +15,7 @@ interface _CodePageState {
     code_data : string;
 }
 
-export class CodePage extends React.Component<any, any> {
+export class CodePage extends React.Component<any, _CodePageState> {
     constructor() {
         super()
         this.setCodeData = this.setCodeData.bind(this)

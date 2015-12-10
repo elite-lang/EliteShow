@@ -14,16 +14,19 @@ import { SettingPage } from './setting-page';
 import { AboutPage } from './about-page';
 
 
-interface _MainPageState {
-    nowPage: number;
+interface AppData {
+    nowPage    : number;
+    code_data  : string;
+    lex_cfg    : string;
+    parser_cfg : string;
 }
 
-class MainPage extends React.Component<any, _MainPageState> {
+class MainPage extends React.Component<any, AppData> {
     private id: string;
     constructor(id: string) {
         super()
         this.id = id
-        this.state = {nowPage: 1} as _MainPageState;
+        this.state = {nowPage: 1, code_data: ''} as AppData;
         this.onMenuChange = this.onMenuChange.bind(this)
     }
     PageRender() {
@@ -33,7 +36,7 @@ class MainPage extends React.Component<any, _MainPageState> {
         )
     }
     onMenuChange(e: string) {
-        this.setState({nowPage: +e}) // 神奇的string转number的写法
+        this.setState({nowPage: +e} as AppData) // 神奇的string转number的写法
     }
 
     renderNowPage(num: number) {
@@ -55,11 +58,11 @@ class MainPage extends React.Component<any, _MainPageState> {
                         <MainMenu onUpdate={this.onMenuChange} />
                     </Col>
                     <Col span='20'>
-                    <QueueAnim
-                      type={['bottom', 'top']}
-                      delay={[400, 0]}
-                      duration={300} >
-                        {this.renderNowPage(this.state.nowPage)}
+                        <QueueAnim
+                            type     = {['bottom', 'top']}
+                            delay    = {[400, 0]}
+                            duration = {300} >
+                            {this.renderNowPage(this.state.nowPage)}
                         </QueueAnim>
                     </Col>
                 </Row>
