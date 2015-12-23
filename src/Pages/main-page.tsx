@@ -53,7 +53,7 @@ class MainPage extends React.Component<any, AppData> {
     renderNowPage() {
         switch (this.state.nowPage)
         {
-            case 1: return <ConfigPage key="page1" />;
+            case 1: return <ConfigPage data={this.app} key="page1" />;
             case 2: return <CodePage key="page2" />;
             case 3: return <ShowPage key="page3" />;
             case 4: return <SettingPage key="page4" />;

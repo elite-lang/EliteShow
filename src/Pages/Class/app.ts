@@ -38,6 +38,11 @@ export class App implements AppData {
         console.log(this.app_path)
     }
 
+    public UpdataData(obj) {
+        for (var index in obj) {
+            this[index] = obj[index]
+        }
+    }
 
     public loadAll() {
         fs.exists(this.app_path, (exists) => {
@@ -58,6 +63,9 @@ export class App implements AppData {
 
     }
     public saveAll() {
+        console.log(this.lex_cfg)
+        console.log(this.parser_cfg)
+
         fs.writeFile(this.parser_cfg_path, this.parser_cfg, 'utf-8', (err) => {
             if (err) return console.log(err)
             console.log(this.lex_cfg_path);

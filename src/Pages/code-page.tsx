@@ -20,6 +20,8 @@ export class CodePage extends React.Component<any, _CodePageState> {
         super()
         this.setCodeData = this.setCodeData.bind(this)
         this.onOpenFile = this.onOpenFile.bind(this)
+        this.onSaveFile = this.onSaveFile.bind(this)
+        this.onChange = this.onChange.bind(this)
         this.state = {code_data: ''} as _CodePageState
     }
     setCodeData(e: string) {
@@ -27,6 +29,9 @@ export class CodePage extends React.Component<any, _CodePageState> {
     }
 
     onChange(newValue) {
+        console.log("change", newValue)
+        // this.setCodeData(newValue)
+        this.state.code_data = newValue
     }
 
     onOpenFile() {
@@ -67,6 +72,7 @@ export class CodePage extends React.Component<any, _CodePageState> {
                        mode="c_cpp"
                        theme="monokai"
                        value={this.state.code_data}
+                       onChange={this.onChange}
                        name="UNIQUE_ID_OF_DIV"
                        fontSize={18}
                        editorProps={{$blockScrolling: true}}
