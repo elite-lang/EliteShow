@@ -43,6 +43,12 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         this.setState({current: e.key} as _MenuState);
         this.prop.onUpdate(e.key)
     }
+    handleMainBtn(e) {
+        if (e.key == '6') {
+            console.log("on Exit");
+            window.close();
+        }
+    }
     render() {
         return <div className='main-menu-container'>
             <Menu onClick={this.handleClick}
@@ -58,7 +64,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                 <Item key="4"><Icon type="setting" />选项</Item>
                 <Item key="5"><Icon type="info-circle" />关于</Item>
             </Menu>
-            <Dropdown overlay={mainMenu}>
+            <Dropdown overlay={this.mainMenu} >
                 <div className='main-menu-btn-container'>
                 <Button type="primary" className='main-menu-btn'>
                     <Icon type="bars" /> 主菜单 &nbsp; <Icon type="up" />
@@ -68,23 +74,16 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         </div>;
     }
 
+    private mainMenu = <div><Menu onClick={this.handleMainBtn} style={{width:200}} mode="vertical">
+      <Item key="0">新项目...</Item>
+      <Item key="1">打开项目...</Item>
+      <Item key="2">保存项目...</Item>
+      <SubMenu key="sub1" title={<span><Icon type="export" /><span>导出</span></span>}>
+        <Item key="3">选项1</Item>
+        <Item key="4">选项2</Item>
+        <Item key="5">选项3</Item>
+      </SubMenu>
+      <Divider/>
+      <Item key="6">退出</Item>
+    </Menu></div>;
 }
-
-const mainMenu = <div><Menu style={{width:200}} mode="vertical">
-  <Item key="0">
-    <a href="http://www.alipay.com/">新项目...</a>
-  </Item>
-  <Item key="1">
-    <a href="http://www.taobao.com/">打开项目...</a>
-  </Item>
-  <Item key="2">
-    <a href="http://www.taobao.com/">保存项目...</a>
-  </Item>
-  <SubMenu key="3" title={<span><Icon type="export" /><span>导出</span></span>}>
-    <Menu.Item key="sub1">选项1</Menu.Item>
-    <Menu.Item key="sub2">选项2</Menu.Item>
-    <Menu.Item key="sub3">选项3</Menu.Item>
-  </SubMenu>
-  <Divider/>
-  <Item key="4">退出</Item>
-</Menu></div>;

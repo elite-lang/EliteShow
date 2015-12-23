@@ -25,6 +25,7 @@
     "buildOnSave": false,
     "files": [
         "../../typings/tsd.d.ts",
+        "Class/app.ts",
         "about-page.tsx",
         "code-editor.tsx",
         "code-page.tsx",

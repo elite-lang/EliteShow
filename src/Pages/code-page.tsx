@@ -7,7 +7,7 @@ require('brace/theme/monokai')
 const Button = require('antd/lib/button');
 const Icon = require('antd/lib/icon');
 const ButtonGroup = Button.Group;
-const rf = require("fs");
+const fs = require("fs");
 const remote = require('remote');
 const dialog = remote.require('dialog');
 
@@ -34,7 +34,7 @@ export class CodePage extends React.Component<any, _CodePageState> {
         dialog.showOpenDialog((fileNames) => {
             if (fileNames === undefined) return;
             var fileName = fileNames[0];
-            rf.readFile(fileName, 'utf-8', (err,data) => {
+            fs.readFile(fileName, 'utf-8', (err,data) => {
                 if(err){
                     console.log("error")
                 }else{
