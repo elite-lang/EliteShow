@@ -1,13 +1,13 @@
 "use strict";
 import * as React from 'react';
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 const Datepicker = require('antd/lib/datepicker');
 const Row = require('antd/lib/row');
 const Col = require('antd/lib/col');
 const QueueAnim = require('antd/lib/queue-anim');
 const Modal = require('antd/lib/modal');
 const confirm = Modal.confirm;
-// var message = require('antd/lib/message');
+
 import { MainMenu } from './main-menu'; // 导入别的文件
 import { ConfigPage } from './config-page';
 import { CodePage } from './code-page';
@@ -19,8 +19,8 @@ import { AppData, App } from "./Class/app";
 
 class MainPage extends React.Component<any, AppData> {
     private app: App;
-    constructor(props:any) {
-        super(props)
+    constructor() {
+        super()
         this.onDataChange  = this.onDataChange.bind(this)
         this.onMenuChange  = this.onMenuChange.bind(this)
         this.confirmExit   = this.confirmExit.bind(this)
@@ -30,7 +30,6 @@ class MainPage extends React.Component<any, AppData> {
         this.app.loadAll()
         window.onbeforeunload = this.confirmExit
     }
-
     onDataChange() {
         this.setState(this.app as AppData)
     }
@@ -54,7 +53,7 @@ class MainPage extends React.Component<any, AppData> {
         switch (this.state.nowPage)
         {
             case 1: return <ConfigPage data={this.app} key="page1" />;
-            case 2: return <CodePage key="page2" />;
+            case 2: return <CodePage data={this.app} key="page2" />;
             case 3: return <ShowPage key="page3" />;
             case 4: return <SettingPage key="page4" />;
             case 5: return <AboutPage key="page5" />;
@@ -66,7 +65,7 @@ class MainPage extends React.Component<any, AppData> {
             <div className="container">
                 <Row>
                     <Col span='4' className='container-left'>
-                        <MainMenu onUpdate={this.onMenuChange} />
+                        <MainMenu onUpdate={this.onMenuChange} app={this.app} />
                     </Col>
                     <Col span='20'>
                         <QueueAnim

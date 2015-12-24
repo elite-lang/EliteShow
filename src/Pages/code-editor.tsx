@@ -17,6 +17,7 @@ interface _CodeEditorProps {
     title : string;
     data : string;
     onChange : (string) => any;
+    onUpdate : (any) => any;
 }
 
 export class CodeEditor extends React.Component<any, any> {
@@ -36,7 +37,8 @@ export class CodeEditor extends React.Component<any, any> {
                 }else{
                     console.log(data)
                     console.log(that)
-                    this.props.data = data
+                    that.props.data = data
+                    that.props.onUpdate()
                 }
             });
         });

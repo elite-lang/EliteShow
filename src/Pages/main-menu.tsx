@@ -8,11 +8,12 @@ const Divider = Menu.Divider;
 const SubMenu = Menu.SubMenu;
 const Dropdown = require('antd/lib/dropdown');
 const Button = require('antd/lib/button');
-
+import {App} from './Class/app';
 
 
 interface _MenuProps {
-    onUpdate : (string) => any
+    onUpdate : (string) => any;
+    app: App;
 }
 
 interface _MenuState { // 用接口会比较方便
@@ -22,13 +23,18 @@ interface _MenuState { // 用接口会比较方便
 // 这里必须要导出类
 export class MainMenu extends React.Component<_MenuProps, _MenuState> {
     private current : string;
-    private prop : _MenuProps
+    private prop : _MenuProps;
+    private app: App;
 
     constructor(props: _MenuProps) {
         super(props)
         this.prop = props
+        this.app = props.app
         this.state = this.getInitial()
         this.handleClick = this.handleClick.bind(this)
+        this.handleMainBtn = this.handleMainBtn.bind(this)
+        this.onBuild = this.onBuild.bind(this)
+        this.onRun = this.onRun.bind(this)
         // 这句非常关键，原因：
         // React components using ES6 classes no longer autobind this to non React methods.
     }
@@ -49,6 +55,13 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
             window.close();
         }
     }
+    onBuild() {
+        this.app.cmd_runner.build()
+    }
+    onRun() {
+        this.app.cmd_runner.build()
+    }
+
     render() {
         return <div className='main-menu-container'>
             <Menu onClick={this.handleClick}
@@ -60,15 +73,23 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                 </Item>
                 <Item key="1"><Icon type="code" />分析器配置</Item>
                 <Item key="2"><Icon type="file-text" />源代码编辑</Item>
-                <Item key="3"><Icon type="desktop" />过程展示</Item>
+                <Item key="3"><Icon type="solution" />过程展示</Item>
                 <Item key="4"><Icon type="setting" />选项</Item>
                 <Item key="5"><Icon type="info-circle" />关于</Item>
             </Menu>
+            <div className='build-btn-container'>
+                <Button className='main-menu-btn' onClick={this.onBuild}>
+                    <Icon type="caret-circle-right" /> 构建项目
+                </Button>
+                <Button className='main-menu-btn' onClick={this.onRun}>
+                    <Icon type="desktop" /> 执行结果
+                </Button>
+            </div>
             <Dropdown overlay={this.mainMenu} >
                 <div className='main-menu-btn-container'>
-                <Button type="primary" className='main-menu-btn'>
-                    <Icon type="bars" /> 主菜单 &nbsp; <Icon type="up" />
-                </Button>
+                    <Button type="primary" className='main-menu-btn'>
+                        <Icon type="bars" /> 主菜单 &nbsp; <Icon type="up" />
+                    </Button>
                 </div>
             </Dropdown>
         </div>;

@@ -29,11 +29,13 @@ export class ConfigPage extends React.Component<any, any> {
                 <Row className="config-page-edit">
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='left-code-editor' title='词法分析配置'
-                            data={this.data.lex_cfg} onChange={this.onLeftChange} />
+                            data={this.data.lex_cfg} onChange={this.onLeftChange}
+                            onUpdate={this.data.UpdataData} />
                     </Col>
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='right-code-editor' title='语法分析配置'
-                            data={this.data.parser_cfg} onChange={this.onRightChange} />
+                            data={this.data.parser_cfg} onChange={this.onRightChange}
+                            onUpdate={this.data.UpdataData} />
                     </Col>
                 </Row>
             </div>

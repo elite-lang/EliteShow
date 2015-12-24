@@ -3,6 +3,7 @@ const remote = require('remote');
 const app = remote.require('app');
 const fs = require("fs");
 const path = require('path');
+import {Cmd} from './cmd'
 
 export interface AppData {
     nowPage    : number;
@@ -20,19 +21,25 @@ export class App implements AppData {
     parser_cfg : string;
 
     private app_path : string;
-    private Updata : () => any
     private parser_cfg_path : string;
     private lex_cfg_path : string;
+    private src_path : string;
+    private exe_path : string;
+    cmd_runner : Cmd;
+    private update : ()=>any;
 
-    constructor(func : () => any) {
+    constructor(update: ()=>any) {
+        this.update = update
         this.nowPage    = 1
         this.code_data  = ''
         this.lex_cfg    = ''
         this.parser_cfg = ''
         this.app_path   = path.join(app.getPath('userData'), 'workspace')
-        this.Updata     = func
         this.parser_cfg_path = path.join(this.app_path, 'p.cfg')
         this.lex_cfg_path    = path.join(this.app_path, 'l.cfg')
+        this.src_path        = path.join(this.app_path, 'main.elite')
+        this.exe_path        = path.join(this.app_path, 'build', 'main')
+        this.cmd_runner = new Cmd(this.src_path, this.exe_path);
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
         console.log(this.app_path)
@@ -42,6 +49,7 @@ export class App implements AppData {
         for (var index in obj) {
             this[index] = obj[index]
         }
+        this.update();
     }
 
     public loadAll() {
@@ -53,24 +61,30 @@ export class App implements AppData {
         fs.readFile(this.parser_cfg_path, 'utf-8', (err,data) => {
             if(err) return console.log(err)
             that.parser_cfg = data
-            that.Updata()
         });
         fs.readFile(this.lex_cfg_path, 'utf-8', (err,data) => {
             if(err) return console.log(err)
             that.lex_cfg = data
-            that.Updata()
         });
-
+        fs.readFile(this.src_path, 'utf-8', (err,data) => {
+            if(err) return console.log(err)
+            that.code_data = data
+        });
     }
     public saveAll() {
         console.log(this.lex_cfg)
         console.log(this.parser_cfg)
+        console.log(this.code_data)
 
         fs.writeFile(this.parser_cfg_path, this.parser_cfg, 'utf-8', (err) => {
             if (err) return console.log(err)
             console.log(this.lex_cfg_path);
         });
         fs.writeFile(this.lex_cfg_path, this.lex_cfg, 'utf-8', (err) => {
+            if (err) return console.log(err)
+            console.log(this.lex_cfg_path);
+        });
+        fs.writeFile(this.src_path, this.code_data, 'utf-8', (err) => {
             if (err) return console.log(err)
             console.log(this.lex_cfg_path);
         });

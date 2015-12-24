@@ -2132,7 +2132,12 @@
   width: 100%;
   bottom: 20px; }
 
+.build-btn-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%; }
+
 .main-menu-btn {
-  margin: 0 auto;
+  margin-top: 10px;
   width: 60%;
   padding: 6px; }
