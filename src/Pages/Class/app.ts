@@ -25,6 +25,7 @@ export class App implements AppData {
     private lex_cfg_path : string;
     private src_path : string;
     private exe_path : string;
+    private build_path : string;
     cmd_runner : Cmd;
     private update : ()=>any;
 
@@ -39,7 +40,8 @@ export class App implements AppData {
         this.lex_cfg_path    = path.join(this.app_path, 'l.cfg')
         this.src_path        = path.join(this.app_path, 'main.elite')
         this.exe_path        = path.join(this.app_path, 'build', 'main')
-        this.cmd_runner = new Cmd(this.src_path, this.exe_path);
+        this.build_path      = path.join(this.app_path, 'build')
+        this.cmd_runner = new Cmd(this.build_path, this.src_path, this.exe_path);
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
         console.log(this.app_path)

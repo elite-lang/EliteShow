@@ -2,8 +2,6 @@
 import * as React from 'react';
 const ReactDOM = require('react-dom');
 const Datepicker = require('antd/lib/datepicker');
-const Row = require('antd/lib/row');
-const Col = require('antd/lib/col');
 const QueueAnim = require('antd/lib/queue-anim');
 const Modal = require('antd/lib/modal');
 const confirm = Modal.confirm;
@@ -63,19 +61,17 @@ class MainPage extends React.Component<any, AppData> {
     render() {
         return (
             <div className="container">
-                <Row>
-                    <Col span='4' className='container-left'>
-                        <MainMenu onUpdate={this.onMenuChange} app={this.app} />
-                    </Col>
-                    <Col span='20'>
-                        <QueueAnim
-                            type     = {['bottom', 'top']}
-                            delay    = {[400, 0]}
-                            duration = {300} >
-                            {this.renderNowPage()}
-                        </QueueAnim>
-                    </Col>
-                </Row>
+                <div className='container-left'>
+                    <MainMenu onUpdate={this.onMenuChange} app={this.app} />
+                </div>
+                <div className='container-right'>
+                    <QueueAnim
+                        type     = {['bottom', 'top']}
+                        delay    = {[400, 0]}
+                        duration = {300} >
+                        {this.renderNowPage()}
+                    </QueueAnim>
+                </div>
             </div>
         )
     }

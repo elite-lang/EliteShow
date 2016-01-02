@@ -84,15 +84,15 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                 <Item key="3"><Icon type="solution" />过程展示</Item>
                 <Item key="4"><Icon type="setting" />选项</Item>
                 <Item key="5"><Icon type="info-circle" />关于</Item>
+                <div className='build-btn-container'>
+                    <Button className='main-menu-btn' onClick={this.onBuild} loading={this.state.isCompiling} >
+                        <Icon type="caret-circle-right" /> 构建项目
+                    </Button>
+                    <Button className='main-menu-btn' onClick={this.onRun}>
+                        <Icon type="desktop" /> 执行结果
+                    </Button>
+                </div>
             </Menu>
-            <div className='build-btn-container'>
-                <Button className='main-menu-btn' onClick={this.onBuild} loading={this.state.isCompiling} >
-                    <Icon type="caret-circle-right" /> 构建项目
-                </Button>
-                <Button className='main-menu-btn' onClick={this.onRun}>
-                    <Icon type="desktop" /> 执行结果
-                </Button>
-            </div>
             <Dropdown overlay={this.mainMenu} >
                 <div className='main-menu-btn-container'>
                     <Button type="primary" className='main-menu-btn'>
@@ -103,7 +103,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         </div>;
     }
 
-    private mainMenu = <div><Menu onClick={this.handleMainBtn} style={{width:200}} mode="vertical">
+    private mainMenu = <div><Menu onClick={this.handleMainBtn} className='main-popup-menu' mode="vertical">
       <Item key="0">新项目...</Item>
       <Item key="1">打开项目...</Item>
       <Item key="2">保存项目...</Item>

@@ -2081,15 +2081,20 @@
   content: ""; }
 
 .container {
-  width: 100%;
   height: 100vh;
   position: relative;
-  overflow: hidden;
-  background-color: #eee; }
+  background-color: #eee;
+  display: flex;
+  flex-flow: row;
+  width: 100%; }
 
 .container-left {
   height: 100vh;
-  background-color: #404040; }
+  background-color: #404040;
+  width: 200px; }
+
+.container-right {
+  flex: 1; }
 
 .page-container {
   padding-top: 20px;
@@ -2124,13 +2129,15 @@
   vertical-align: middle; }
 
 .main-menu-container {
-  height: 100%; }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
 
 .main-menu-btn-container {
   text-align: center;
-  position: absolute;
   width: 100%;
-  bottom: 20px; }
+  margin-bottom: 20px; }
 
 .build-btn-container {
   margin-top: 20px;
@@ -2144,3 +2151,6 @@
 
 .show-page-ctx {
   margin: 10px 20px; }
+
+main-popup-menu {
+  width: 200px; }
