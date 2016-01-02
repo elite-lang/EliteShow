@@ -21,18 +21,20 @@
   ],
   "electronVersion": "0.35.0",
   "dependencies": {
-    "react": "0.14.3",
-    "react-dom": "0.14.3",
     "antd": "~0.10.4",
+    "brace": "~0.5.1",
+    "exec": "^0.2.1",
     "font-awesome": "~4.5.0",
     "rc-animate": "~2.0.2",
+    "react": "0.14.3",
     "react-ace": "~2.7.0",
-    "brace": "~0.5.1",
-    "terminal-everywhere": "~0.2.0",
-    "browserify": "~12.0.1",
-    "react-graph-vis": "0.0.3"
+    "react-dom": "0.14.3",
+    "react-graph-vis": "0.0.3",
+    "terminal-everywhere": "~0.2.0"
   },
   "devDependencies": {
+    "browserify": "~12.0.1",
+    "browserify-shim": "^3.8.11",
     "electron-packager": "5.1.1",
     "electron-prebuilt": "0.35.0",
     "electron-rebuild": "1.0.2",
@@ -45,12 +47,12 @@
     "gulp-sass": "2.1.0",
     "gulp-shell": "0.5.1",
     "gulp-util": "3.0.7",
-    "typescript": "1.7.3",
     "node-gyp": "3.2.0",
     "npm-check-updates": "2.5.1",
-    "run-sequence": "1.1.5",
     "react-tools": "0.13.3",
-    "tsd": "0.6.5"
+    "run-sequence": "1.1.5",
+    "tsd": "0.6.5",
+    "typescript": "1.7.3"
   },
   "scripts": {
     "preinstall": "npm prune",

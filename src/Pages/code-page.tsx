@@ -15,7 +15,7 @@ export class CodePage extends React.Component<any, any> {
     }
     render() {
         return <div className="page-container">
-            <CodeEditor name='left-code-editor' title='词法分析配置'
+            <CodeEditor name='code-editor' title='代码编辑器'
                 data={this.data.code_data} onChange={this.onChange}
                 onUpdate={this.data.UpdataData} />
             </div>

@@ -38,7 +38,7 @@ gulp.task("typescript", $.shell.task("tsc -p ./src/Pages/"));
 gulp.task("typescript-main", $.shell.task("tsc -p ./src/Main/"));
 
 gulp.task("browserify", $.shell.task("browserify ./compiled/main-page.js" +
-    " -u electron -u fs -u remote -u dialog" +
+    " -u electron -u fs -u remote -u dialog -u child_process" +
     " -o ./app/js/bundle.js"));
 
 gulp.task("sass", function() {

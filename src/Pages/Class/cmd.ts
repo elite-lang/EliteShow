@@ -1,6 +1,7 @@
 "use strict";
 
-var exec = require('child_process').exec;
+var cp = require('child_process')
+console.log("cp", cp)
 
 export class Cmd {
     private src_path: string;
@@ -13,18 +14,31 @@ export class Cmd {
         this.run = this.run.bind(this)
     }
 
-    build() {
-        var cmd = 'elite -i ' + this.src_path + ' --show'
-        this.run_cmd(cmd)
+    build(callback: () => any) {
+        var cmd = ['elite', '-i', this.src_path, '--show']
+        this.run_cmd(cmd, callback)
     }
-    run() {
-        this.run_cmd(this.file_path)
+    run(callback: () => any) {
+        this.run_cmd([this.file_path], callback)
     }
-    run_cmd(shell) {
-        exec(shell, (error, stdout, stderr)=>{
-            console.log(stdout);
-            if (error != 0) console.log(stderr);
-        })
+    run_cmd(shell, callback:()=>any) {
+        cp.exec(this.join(shell),
+            (error, stdout, stderr)=>{
+                console.log(stdout);
+                if (error != 0) {
+                    console.log(error);
+                    console.log(stderr);
+                }
+                callback()
+            })
+    }
+    join(args: string[]) {
+        var ans = ''
+        for (var i of args) { // 用of是对value遍历
+            ans += i
+            ans += ' '
+        }
+        return ans
     }
 
 }

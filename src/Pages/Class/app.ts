@@ -46,7 +46,7 @@ export class App implements AppData {
     }
 
     public UpdataData(obj) {
-        for (var index in obj) {
+        for (var index in obj) { // 用in是对key遍历
             this[index] = obj[index]
         }
         this.update();

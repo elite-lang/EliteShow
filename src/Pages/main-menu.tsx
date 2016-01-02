@@ -17,7 +17,8 @@ interface _MenuProps {
 }
 
 interface _MenuState { // 用接口会比较方便
-    current : string
+    current : string,
+    isCompiling: boolean
 }
 
 // 这里必须要导出类
@@ -40,7 +41,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
     }
 
     getInitial(): _MenuState {
-        return {current: '1'} as _MenuState;
+        return {current: '1', isCompiling: false} as _MenuState;
     }
     handleClick(e) {
         if (e.key == '0') {
@@ -56,10 +57,17 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         }
     }
     onBuild() {
-        this.app.cmd_runner.build()
+        var that = this
+        this.app.cmd_runner.build(() => {
+            that.setState({isCompiling: false} as _MenuState);
+        })
+        this.setState({isCompiling: true} as _MenuState);
     }
     onRun() {
-        this.app.cmd_runner.build()
+        var that = this
+        this.app.cmd_runner.run(()=>{
+            console.log("code run");
+        })
     }
 
     render() {
@@ -78,7 +86,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                 <Item key="5"><Icon type="info-circle" />关于</Item>
             </Menu>
             <div className='build-btn-container'>
-                <Button className='main-menu-btn' onClick={this.onBuild}>
+                <Button className='main-menu-btn' onClick={this.onBuild} loading={this.state.isCompiling} >
                     <Icon type="caret-circle-right" /> 构建项目
                 </Button>
                 <Button className='main-menu-btn' onClick={this.onRun}>
