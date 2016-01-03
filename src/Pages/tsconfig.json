@@ -35,7 +35,8 @@
         "main-page.tsx",
         "setting-page.tsx",
         "show-page.tsx",
-        "Show/LexDfa.tsx"
+        "Show/LexDfa.tsx",
+        "Show/ShowList.tsx"
     ],
     "atom": {
         "rewriteTsconfig": true

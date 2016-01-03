@@ -22,8 +22,8 @@
   "electronVersion": "0.35.0",
   "dependencies": {
     "antd": "^0.10.4",
+    "bootstrap": "^3.3.6",
     "brace": "~0.5.1",
-    "exec": "^0.2.1",
     "font-awesome": "~4.5.0",
     "rc-animate": "~2.0.2",
     "react": "0.14.3",
@@ -53,6 +53,25 @@
     "run-sequence": "1.1.5",
     "tsd": "0.6.5",
     "typescript": "1.7.3"
+  },
+  "browser": {
+    "jquery": "./app/js/vendor/jquery.js",
+    "jquery.color": "./app/js/vendor/jquery.color.js",
+    "jquery.mousewheel": "./app/js/vendor/jquery.mousewheel.js",
+    "bootstrap.tooltip": "./app/js/vendor/tooltip.js",
+    "graphviz.svg": "./app/js/vendor/jquery.graphviz.svg.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "graphviz.svg": { "depends": [ "jquery", "jquery.color", "jquery.mousewheel", "bootstrap.tooltip" ] },
+    "jquery.color": { "depends": [ "jquery" ] },
+    "jquery.mousewheel": { "depends": [ "jquery" ] },
+    "bootstrap.tooltip": { "depends": [ "jquery" ] }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "scripts": {
     "preinstall": "npm prune",

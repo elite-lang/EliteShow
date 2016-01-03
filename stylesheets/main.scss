@@ -1,7 +1,6 @@
-@import "colors";
-
-@import "../node_modules/font-awesome/scss/font-awesome";
+@import "bootstrap.css";
 @import "antd.css";
+@import "graphviz.svg.css";
 
 .container {
   height: 100vh;
@@ -96,4 +95,8 @@
 
 main-popup-menu {
     width: 200px;
+}
+
+#gv-graph {
+    width: 100%; height: 600px; overflow: scroll;
 }
