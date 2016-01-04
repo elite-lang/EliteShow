@@ -4,6 +4,8 @@ import * as React from 'react';
 var brace  = require('brace');
 var AceEditor  = require('react-ace');
 require('brace/mode/c_cpp')
+require('brace/mode/ini')
+require('brace/mode/lua')
 require('brace/theme/monokai')
 const Button = require('antd/lib/button');
 const Icon = require('antd/lib/icon');
@@ -16,11 +18,12 @@ interface _CodeEditorProps {
     name : string;
     title : string;
     data : string;
+    mode : string;
     onChange : (string) => any;
     onUpdate : (any) => any;
 }
 
-export class CodeEditor extends React.Component<any, any> {
+export class CodeEditor extends React.Component<_CodeEditorProps, any> {
     constructor(props: _CodeEditorProps) {
         super(props)
         this.onOpenFile = this.onOpenFile.bind(this)
@@ -38,7 +41,7 @@ export class CodeEditor extends React.Component<any, any> {
                     console.log(data)
                     console.log(that)
                     that.props.data = data
-                    that.props.onUpdate()
+                    that.props.onUpdate({})
                 }
             });
         });
@@ -61,7 +64,7 @@ export class CodeEditor extends React.Component<any, any> {
                     <AceEditor
                        width="100%"
                        height="100%"
-                       mode="c_cpp"
+                       mode={this.props.mode}
                        theme="monokai"
                        name={this.props.name}
                        onChange={this.props.onChange}

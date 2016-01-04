@@ -1,6 +1,6 @@
 "use strict";
 import * as React from 'react';
-import {CodeEditor} from './code-editor';
+import {CodeEditor} from './Show/code-editor';
 import {App} from './Class/app';
 
 export class CodePage extends React.Component<any, any> {
@@ -16,6 +16,7 @@ export class CodePage extends React.Component<any, any> {
     render() {
         return <div className="page-container">
             <CodeEditor name='code-editor' title='代码编辑器'
+                mode='c_cpp'
                 data={this.data.code_data} onChange={this.onChange}
                 onUpdate={this.data.UpdataData} />
             </div>

@@ -3,7 +3,7 @@ import * as React from 'react';
 const Row = require('antd/lib/row');
 const Col = require('antd/lib/col');
 const Icon = require('antd/lib/icon');
-import {CodeEditor} from './code-editor';
+import {CodeEditor} from './Show/code-editor';
 import {App} from './Class/app';
 
 export class ConfigPage extends React.Component<any, any> {
@@ -29,11 +29,13 @@ export class ConfigPage extends React.Component<any, any> {
                 <Row className="config-page-edit">
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='left-code-editor' title='词法分析配置'
+                            mode='ini'
                             data={this.data.lex_cfg} onChange={this.onLeftChange}
                             onUpdate={this.data.UpdataData} />
                     </Col>
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='right-code-editor' title='语法分析配置'
+                            mode='lua'
                             data={this.data.parser_cfg} onChange={this.onRightChange}
                             onUpdate={this.data.UpdataData} />
                     </Col>

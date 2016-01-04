@@ -249,7 +249,7 @@
     this.scaleView(100.0)
     $element.mousewheel(function (evt) {
         console.log(evt);
-        if (evt.shiftKey) {
+        // if (evt.shiftKey) {
           var percentage = that.zoom.percentage
           percentage -= evt.deltaY * evt.deltaFactor
           if (percentage < 100.0) {
@@ -271,7 +271,7 @@
           $element.scrollLeft((rx * $svg.width()) + 0.5 - px)
           $element.scrollTop((ry * $svg.height()) + 0.5 - py)
           return false // stop propogation
-        }
+        // }
       })
   }
 

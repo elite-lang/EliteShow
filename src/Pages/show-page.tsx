@@ -7,6 +7,7 @@ const Col = require('antd/lib/col');
 const TabPane = Tabs.TabPane;
 import { LexDfa } from './Show/LexDfa';
 import { ShowList } from './Show/ShowList';
+import { VisTree } from './Show/VisTree';
 
 export class ShowPage extends React.Component<any, any> {
     constructor(props) {
@@ -29,7 +30,10 @@ export class ShowPage extends React.Component<any, any> {
                         <Col span="6"><ShowList /></Col>
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[1]} key="2">语法分析状态</TabPane>
-                    <TabPane tab={this.tabContent[2]} key="3">语法树构建</TabPane>
+                    <TabPane tab={this.tabContent[2]} key="3"><Row>
+                        <Col span="18"><VisTree /></Col>
+                        <Col span="6"><ShowList /></Col>
+                    </Row></TabPane>
                     <TabPane tab={this.tabContent[3]} key="4">生成LLVM-IR</TabPane>
                 </Tabs>
             </div>
