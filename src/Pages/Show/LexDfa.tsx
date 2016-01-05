@@ -21,7 +21,6 @@ export class LexDfa extends React.Component<any, any> {
     }
     componentDidMount() {
         jquery(this.refs['gv-graph']).graphviz({
-        // jquery('#gv-graph').graphviz({
             url: this.url,
             ready: function() {
                 var gv = this
@@ -31,6 +30,7 @@ export class LexDfa extends React.Component<any, any> {
                     $set = $set.add(gv.linkedFrom(this, true))
                     $set = $set.add(gv.linkedTo(this, true))
                     gv.highlight($set, true)
+                    gv.colorMainElement(jquery(this))
                     gv.bringToFront($set)
                 })
             }

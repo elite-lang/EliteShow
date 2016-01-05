@@ -1,8 +1,8 @@
 digraph finite_state_machine {
 	rankdir=LR;
 	size="8,5"
-	node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
-	node [shape = circle];
+	node [shape = doublecircle style = "filled" penwidth = 1 fillcolor = "white"]; LR_0 LR_3 LR_4 LR_8;
+	node [shape = circle style = "filled" penwidth = 1 fillcolor = "white"];
 	LR_0 -> LR_2 [ label = "SS(B)" ];
 	LR_0 -> LR_1 [ label = "SS(S)" ];
 	LR_1 -> LR_3 [ label = "S($end)" ];

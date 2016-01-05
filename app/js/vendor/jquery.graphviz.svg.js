@@ -93,7 +93,12 @@
         return col
       },
       unselected: function (col, bg) {
-        return jQuery.Color(col).transition(bg, 0.9)
+        if (col == 'none') return 'none'
+        return jQuery.Color(col).transition(bg, 0.5)
+      },
+      mainlight: function (col, bg) {
+        if (col == 'none') return 'none'
+        return bg
       }
     },
     ready: null
@@ -191,7 +196,6 @@
       $this.data('graphviz.svg.color', {
         fill: $this.attr('fill'),
         stroke: $this.attr('stroke')
-
       })
 
       // shrink it if it's a node
@@ -375,6 +379,21 @@
       }
     })
   }
+
+  GraphvizSvg.prototype.colorMainElement = function ($el) {
+    var getColor = this.options.highlight.mainlight
+    $el.find('polygon, ellipse, path').each(function() {
+      var $this = $(this)
+      var color = $this.data('graphviz.svg.color')
+      if (color.fill && $this.prop('tagName') != 'path') {
+        $this.attr('fill', getColor(color.fill, jQuery.Color(255, 138, 29))) // don't set  fill if it's a path
+      }
+      if (color.stroke) {
+        $this.attr('stroke', getColor(color.stroke, jQuery.Color(215, 52, 0)))
+      }
+    })
+  }
+
 
   GraphvizSvg.prototype.restoreElement = function ($el) {
     $el.find('polygon, ellipse, path').each(function() {
