@@ -23,9 +23,9 @@ export class Cmd {
     run(callback: () => any) {
         this.run_cmd([this.file_path], callback)
     }
-    run_cmd(shell, callback:()=>any) {
+    run_cmd(shell, callback: () => any) {
         cp.exec(this.join(shell),
-            (error, stdout, stderr)=>{
+            (error, stdout, stderr) => {
                 console.log(stdout);
                 if (error != 0) {
                     console.log(error);

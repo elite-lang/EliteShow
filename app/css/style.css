@@ -76,7 +76,7 @@
 main-popup-menu {
   width: 200px; }
 
-#gv-graph {
+.gv-graph {
   width: 700px;
   height: 600px;
   overflow: scroll; }

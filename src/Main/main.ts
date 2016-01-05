@@ -28,7 +28,7 @@ app.on('open-file', function(e) {
   }
 });
 
-app.on('activate-with-no-open-windows', function() {
+app.on('activate-with-no-open-windows', () => {
   if(mainWindow) {
     mainWindow.show();
   }
