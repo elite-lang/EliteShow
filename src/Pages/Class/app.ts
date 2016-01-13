@@ -4,6 +4,7 @@ const app = remote.require('app');
 const fs = require("fs");
 const path = require('path');
 import {Cmd} from './cmd'
+import {Bnf} from './bnf';
 
 export interface AppData {
     nowPage    : number;
@@ -26,6 +27,7 @@ export class App implements AppData {
     private src_path : string;
     private exe_path : string;
     private build_path : string;
+    private json_path : string;
     cmd_runner : Cmd;
     private update : ()=>any;
 
@@ -41,7 +43,9 @@ export class App implements AppData {
         this.src_path        = path.join(this.app_path, 'main.elite')
         this.exe_path        = path.join(this.app_path, 'build', 'main')
         this.build_path      = path.join(this.app_path, 'build')
-        this.cmd_runner = new Cmd(this.build_path, this.src_path, this.exe_path);
+        this.json_path       = path.join(this.app_path, 'build', 'parser.json')
+        this.cmd_runner = new Cmd(this.build_path, this.src_path, this.exe_path,
+                                  this.lex_cfg_path, this.parser_cfg_path);
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
         console.log(this.app_path)
@@ -72,6 +76,10 @@ export class App implements AppData {
             if(err) return console.log(err)
             that.code_data = data
         });
+
+        var bnfs = new Bnf(this.json_path);
+        bnfs.parseJson();
+
     }
     public saveAll() {
         console.log(this.lex_cfg)

@@ -26,6 +26,7 @@
     "files": [
         "../../typings/tsd.d.ts",
         "Class/app.ts",
+        "Class/bnf.ts",
         "Class/cmd.ts",
         "about-page.tsx",
         "code-page.tsx",

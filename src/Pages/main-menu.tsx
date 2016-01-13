@@ -58,6 +58,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
     }
     onBuild() {
         var that = this
+        this.app.saveAll()
         this.app.cmd_runner.build(() => {
             that.setState({isCompiling: false} as _MenuState);
         })
