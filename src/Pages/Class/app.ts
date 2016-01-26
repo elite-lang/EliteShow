@@ -4,7 +4,7 @@ const app = remote.require('app');
 const fs = require("fs");
 const path = require('path');
 import {Cmd} from './cmd'
-import {Bnf} from './bnf';
+import {JsonLoader} from './jsonLoader';
 
 export interface AppData {
     nowPage    : number;
@@ -77,8 +77,8 @@ export class App implements AppData {
             that.code_data = data
         });
 
-        var bnfs = new Bnf(this.json_path);
-        bnfs.parseJson();
+        var loader = new JsonLoader(this.json_path);
+        loader.loadAll();
 
     }
     public saveAll() {
