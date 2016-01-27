@@ -8,10 +8,18 @@ const TabPane = Tabs.TabPane;
 import { LexDfa } from './Show/LexDfa';
 import { ShowList } from './Show/ShowList';
 import { VisTree } from './Show/VisTree';
+import {App} from './Class/app';
+import {BnfList} from './Class/bnfList';
 
 export class ShowPage extends React.Component<any, any> {
+    private data: App;
+    private bnf_list: BnfList;
+
+
     constructor(props) {
         super(props)
+        this.data = this.props.data
+        this.bnf_list = this.data.loader.bnf_list
     }
 
     private tabContent = [
@@ -27,7 +35,7 @@ export class ShowPage extends React.Component<any, any> {
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={this.tabContent[0]} key="1"><Row>
                         <Col span="18"><LexDfa url='img/fsm.svg' /></Col>
-                        <Col span="6"><ShowList /></Col>
+                        <Col span="6"><ShowList data={this.bnf_list.render()} /></Col>
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[1]} key="2"><Row>
                         <Col span="18"><LexDfa url='img/a.svg' /></Col>

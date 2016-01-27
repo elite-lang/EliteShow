@@ -1,7 +1,6 @@
 "use strict";
 import * as React from 'react';
 
-
 interface ShowListState {
     items : any[]
 }

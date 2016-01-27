@@ -22,8 +22,8 @@ export class Bnf {
         return s
     }
 
-    render() {
-        return <div>
+    render(key) {
+        return <div key={key}>
             <p>{this.source + ' => ' + this.genlist(this.gen)}</p>
         </div>
     }
@@ -44,7 +44,7 @@ export class BnfList {
     render_all(list: Bnf[]) {
         var ans = []
         for (var key in list)
-            ans.push(list[key].render())
+            ans.push(list[key].render(key))
         return ans
     }
 

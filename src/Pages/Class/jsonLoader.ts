@@ -6,9 +6,9 @@ import {BnfList} from './bnfList'
 import {Vmap} from './vmap'
 
 export class JsonLoader {
-    private goto_map: GotoMap;
-    private bnf_list: BnfList;
-    private vmap: Vmap;
+    goto_map: GotoMap;
+    bnf_list: BnfList;
+    vmap: Vmap;
     private path: string;
 
     constructor(path: string) {

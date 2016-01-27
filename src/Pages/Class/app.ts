@@ -28,8 +28,9 @@ export class App implements AppData {
     private exe_path : string;
     private build_path : string;
     private json_path : string;
-    cmd_runner : Cmd;
     private update : ()=>any;
+    cmd_runner : Cmd;
+    loader : JsonLoader;
 
     constructor(update: ()=>any) {
         this.update = update
@@ -77,8 +78,8 @@ export class App implements AppData {
             that.code_data = data
         });
 
-        var loader = new JsonLoader(this.json_path);
-        loader.loadAll();
+        this.loader = new JsonLoader(this.json_path);
+        this.loader.loadAll();
 
     }
     public saveAll() {
