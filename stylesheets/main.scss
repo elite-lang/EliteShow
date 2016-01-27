@@ -101,3 +101,19 @@ main-popup-menu {
     width: 700px; height: 600px; overflow: scroll;
 
 }
+
+
+.bnf-list {
+    p {
+        font-size: 16px;
+        .c0 {
+            color: red;
+        }
+        .c1 {
+            color: green;
+        }
+        .c2 {
+            color: purple;
+        }
+    }
+}

@@ -6,25 +6,44 @@ export class Bnf {
     private gen: string[];
 
     constructor(json) {
-        this.source = json.value2
+        console.log(json)
+        this.source = '<' + json.value2.value1 + '>'
         this.gen = []
-        for (let i = 3; json['value'+i] != undefined; i++) {
-            this.gen.push(json['value'+i])
-        }
+        for (let i = 3; json['value'+i] != undefined; i++)
+            for (let j = 0; j < 3; j++)
+                if (json['value'+i]['value'+j].length != 0) {
+                    if (j === 0)
+                        this.gen.push('"' + json['value'+i]['value'+j] + '"')
+                    if (j === 1)
+                        this.gen.push('<' + json['value'+i]['value'+j] + '>')
+                    if (j === 2)
+                        this.gen.push('[' + json['value'+i]['value'+j] + ']')
+                    break;
+                }
         console.log(this)
     }
 
     genlist(list: string[]) {
-        var s = ''
+        var s = []
         for (var key in list) {
-            s += (list[key] + ' ')
+            var className;
+            if (list[key][0] == '<') className = 'c1';
+            if (list[key][0] == '"') className = 'c0';
+            if (list[key][0] == '[') className = 'c2';
+            s.push(
+                <i key={key} className={className}> {list[key]} </i>
+            );
         }
         return s
     }
 
     render(key) {
-        return <div key={key}>
-            <p>{this.source + ' => ' + this.genlist(this.gen)}</p>
+        return <div key={key} className='bnf-list'>
+            <p>
+                <i className='c1'>{this.source}</i>
+                <i> => </i>
+                {this.genlist(this.gen)}
+            </p>
         </div>
     }
 }

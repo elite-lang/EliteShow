@@ -80,3 +80,12 @@ main-popup-menu {
   width: 700px;
   height: 600px;
   overflow: scroll; }
+
+.bnf-list p {
+  font-size: 16px; }
+  .bnf-list p .c0 {
+    color: red; }
+  .bnf-list p .c1 {
+    color: green; }
+  .bnf-list p .c2 {
+    color: purple; }
