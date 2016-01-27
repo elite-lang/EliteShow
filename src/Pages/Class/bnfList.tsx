@@ -6,7 +6,6 @@ export class Bnf {
     private gen: string[];
 
     constructor(json) {
-        console.log(json)
         this.source = '<' + json.value2.value1 + '>'
         this.gen = []
         for (let i = 3; json['value'+i] != undefined; i++)
@@ -20,7 +19,6 @@ export class Bnf {
                         this.gen.push('[' + json['value'+i]['value'+j] + ']')
                     break;
                 }
-        console.log(this)
     }
 
     genlist(list: string[]) {
