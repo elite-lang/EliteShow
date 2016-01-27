@@ -1,4 +1,5 @@
 "use strict";
+import * as React from 'react';
 
 
 export class GotoMap {
@@ -12,4 +13,9 @@ export class GotoMap {
         this.state_size = json.value0
         return this
     }
+
+    render() {
+
+    }
+
 }

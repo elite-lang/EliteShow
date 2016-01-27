@@ -1,4 +1,5 @@
 "use strict";
+import * as React from 'react';
 
 
 export class Vmap {
@@ -13,5 +14,9 @@ export class Vmap {
         this.VtMap = json.VtMap
         this.sum_size = json.value0
         return this
+    }
+
+    render() {
+        
     }
 }
