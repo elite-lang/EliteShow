@@ -8,7 +8,6 @@ export class GotoMap {
     private state_size;
 
     loadJson(json: any) {
-        console.log(json)
         this.Action = json.Action
         this.Goto = json.Goto
         this.state_size = json.value0
