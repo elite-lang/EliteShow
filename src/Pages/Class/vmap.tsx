@@ -26,7 +26,7 @@ export class Vmap {
     render_all(data) {
         var ans = []
         for (var i in data)
-            ans.push(<tr key={i}><td>{i}</td><td>{data[i]}</td></tr>)
+            ans.push(<tr key={data[i]}><td>{i}</td><td>{data[i]}</td></tr>)
         return ans
     }
 
@@ -35,7 +35,7 @@ export class Vmap {
         <table>
             <thead>
                 <tr>
-                <th>Vt 映射表</th>
+                <th>Vt　映射表</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@ export class Vmap {
         <table>
             <thead>
                 <tr>
-                <th>Const 映射表</th>
+                <th>常量映射表</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@ export class Vmap {
         <table>
             <thead>
                 <tr>
-                <th>Vn 映射表</th>
+                <th>Vn　映射表</th>
                 </tr>
             </thead>
             <tbody>
