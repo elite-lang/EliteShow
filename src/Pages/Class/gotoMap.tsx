@@ -25,7 +25,7 @@ export class GotoMap {
         ans.push(<td key={-1}>{i}</td>)
         for (var j in row)
             ans.push(
-                <td key={j}>{this.getChar(this.Action[i][j]) + row[j]}</td>
+                <td key={j}>{ this.getChar(this.Action[i][j]) +  (row[j] != -1 ? row[j] : "") }</td>
             );
         return ans
     }
