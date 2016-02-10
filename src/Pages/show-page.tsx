@@ -13,6 +13,10 @@ import {BnfList} from './Class/bnfList';
 import {GotoMap} from './Class/gotoMap';
 import {Vmap} from './Class/vmap';
 
+var brace  = require('brace');
+var AceEditor  = require('react-ace');
+require('brace/mode/c_cpp')
+
 export class ShowPage extends React.Component<any, any> {
     private data: App;
     private bnf_list: BnfList;
@@ -58,7 +62,17 @@ export class ShowPage extends React.Component<any, any> {
                     <TabPane tab={this.tabContent[4]} key="5">
                         {this.vmap.render()}
                     </TabPane>
-                    <TabPane tab={this.tabContent[5]} key="6">生成LLVM-IR</TabPane>
+                    <TabPane tab={this.tabContent[5]} key="6">
+                        <AceEditor
+                           width="100%"
+                           height="600px"
+                           mode="c_cpp"
+                           theme="monokai"
+                           name="show-LLVM-IR"
+                           fontSize={18}
+                           editorProps={{$blockScrolling: true}}
+                         />
+                     </TabPane>
                 </Tabs>
             </div>
     }
