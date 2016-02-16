@@ -49,7 +49,7 @@ export class ShowPage extends React.Component<any, any> {
                         <Col span="6"><ShowList /></Col>
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[1]} key="2"><Row>
-                        <Col span="18"><LexDfa url='img/a.svg' /></Col>
+                        <Col span="18"><LexDfa url={this.data.svgfile} /></Col>
                         <Col span="6"><ShowList data={this.bnf_list.render()} /></Col>
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[2]} key="3"><Row>
