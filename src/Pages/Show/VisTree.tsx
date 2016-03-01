@@ -19,13 +19,17 @@ export class VisTree extends React.Component<any, any> {
         </div>
     }
 
+    public ShowAST(file_path: string) {
+        // 读入文件
+    }
+
     private static data = {
       nodes: new vis.DataSet([
         {id: 1, label: 'Node 1'},
         {id: 2, label: 'Node 2'},
         {id: 3, label: 'Node 3'},
         {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
+        {id: 5, label: 'Node 5'},
       ]),
       edges: new vis.DataSet([
           {from: 1, to: 2},
@@ -38,7 +42,7 @@ export class VisTree extends React.Component<any, any> {
     private static defaultProps = {
           graph: VisTree.data,
           identifier: uuid.v4(),
-          style: {width:"640px",height:"480px"}
+          style: {width:"100%",height:"100%"}
     };
 
 
