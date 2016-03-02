@@ -40,6 +40,7 @@
         "show-page.tsx",
         "Show/code-editor.tsx",
         "Show/LexDfa.tsx",
+        "Show/ParserShow.tsx",
         "Show/ShowList.tsx",
         "Show/TermBox.tsx",
         "Show/VisTree.tsx"

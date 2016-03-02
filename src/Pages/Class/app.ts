@@ -33,6 +33,7 @@ export class App implements AppData {
     loader: JsonLoader;
     gvfile: string;
     svgfile: string;
+    llvmIRdata: string;
 
     constructor(update: ()=>any) {
         this.update = update
@@ -85,6 +86,10 @@ export class App implements AppData {
         this.loader = new JsonLoader(this.json_path);
         this.loader.loadAll();
 
+        fs.readFile(path.join(this.app_path, 'build', 'main.bc.bitcode'), 'utf-8', (err,data) => {
+            if(err) return
+            this.llvmIRdata = data
+        });
     }
     public saveAll() {
         console.log(this.lex_cfg)

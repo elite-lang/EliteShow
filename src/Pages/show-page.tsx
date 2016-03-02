@@ -12,7 +12,8 @@ import {App} from './Class/app';
 import {BnfList} from './Class/bnfList';
 import {GotoMap} from './Class/gotoMap';
 import {Vmap} from './Class/vmap';
-
+import {ParserShow} from './Show/ParserShow';
+const fs = require("fs");
 var brace  = require('brace');
 var AceEditor  = require('react-ace');
 require('brace/mode/c_cpp')
@@ -23,12 +24,15 @@ export class ShowPage extends React.Component<any, any> {
     private goto_map: GotoMap;
     private vmap: Vmap;
 
+
     constructor(props) {
         super(props)
         this.data = this.props.data
         this.bnf_list = this.data.loader.bnf_list
         this.goto_map = this.data.loader.goto_map
         this.vmap = this.data.loader.vmap
+
+
     }
 
     private tabContent = [
@@ -51,16 +55,14 @@ export class ShowPage extends React.Component<any, any> {
                             <ShowList />
                         </Col>
                     </Row></TabPane>
-                    <TabPane tab={this.tabContent[1]} key="2"><Row>
-                        <Col span="18"><LexDfa url={this.data.svgfile} /></Col>
-                        <Col span="6" style={{padding: '10px 15px'}}>
-                            <h3>BNF列表</h3>
-                            <ShowList data={this.bnf_list.render()} />
-                        </Col>
-                    </Row></TabPane>
+                    <TabPane tab={this.tabContent[1]} key="2">
+                        <ParserShow data={this.data} bnf_list={this.bnf_list} />
+                    </TabPane>
                     <TabPane tab={this.tabContent[2]} key="3"><Row>
                         <Col span="18"><VisTree /></Col>
-                        <Col span="6"><ShowList /></Col>
+                        <Col span="6" style={{padding: '10px 15px'}}>
+                            <ShowList />
+                        </Col>
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[3]} key="4">
                         {this.goto_map.render()}
@@ -75,6 +77,7 @@ export class ShowPage extends React.Component<any, any> {
                            mode="c_cpp"
                            theme="monokai"
                            name="show-LLVM-IR"
+                           value={this.data.llvmIRdata}
                            fontSize={18}
                            editorProps={{$blockScrolling: true}}
                          />
