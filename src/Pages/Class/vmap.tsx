@@ -6,11 +6,14 @@ export class Vmap {
     private ConstMap = {};
     private VnMap = {};
     private VtMap = {};
+    private RMap = {};
     private sum_size;
 
     addMap(map, json) {
-        for (var item of json)
+        for (var item of json) {
             map[item.key] = item.value
+            this.RMap[item.value] = item.key
+        }
     }
 
     loadJson(json: any) {
@@ -22,6 +25,9 @@ export class Vmap {
         return this
     }
 
+    public find(num: number) {
+        return this.RMap[num];
+    }
 
     render_all(data) {
         var ans = []

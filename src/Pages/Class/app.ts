@@ -17,9 +17,9 @@ export interface AppData {
 export class App implements AppData {
 
     nowPage    : number;
-    code_data  : string;
-    lex_cfg    : string;
-    parser_cfg : string;
+    code_data  : string; // 要读入的代码文本元数据
+    lex_cfg    : string; // lex配置元数据
+    parser_cfg : string; // parser配置元数据
 
     private app_path : string;
     private parser_cfg_path : string;
