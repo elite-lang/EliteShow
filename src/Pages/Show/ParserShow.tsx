@@ -22,22 +22,25 @@ export class ParserShow extends React.Component<any, any> {
         this.data = this.props.data
         this.bnf_list = this.data.loader.bnf_list
         this.list = this.data.loader.core.list
-        this.state = {num: 0, onPlay: false, slist: [], stack: []}
+        this.state = {num: 0, onPlay: false, slist: [], stack: [], nodestack: []}
         this.render_line = this.render_line.bind(this)
+    }
+
+    update(new_num): void {
+        var s = new_num - 1 < 0 ? [] : this.list[ new_num - 1].stack
+        var ns = new_num - 1 < 0 ? [] : this.list[ new_num - 1].nodestack
+        this.setState({state: this.list[this.state.num].state})
+        this.setState({num: new_num, slist: this.render_line(new_num), stack: s, nodestack: ns})
     }
 
     backward(): void {
         var new_num = this.state.num - 1 < 0 ? 0 : this.state.num - 1
-        var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
-        this.setState({state: this.list[this.state.num].state})
-        this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
+        this.update(new_num)
     }
 
     forward(): void {
         var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
-        var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
-        this.setState({state: this.list[this.state.num].state})
-        this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
+        this.update(new_num)
     }
 
     play(): void {
@@ -46,11 +49,10 @@ export class ParserShow extends React.Component<any, any> {
 
     pause(): void {
         this.setState({onPlay: false})
-
     }
 
     rollback(): void {
-        this.setState({num: 0, onPlay: false, slist: [], stack: [], state: undefined})
+        this.setState({num: 0, onPlay: false, slist: [], stack: [], nodestack: [], state: undefined})
     }
 
     render_line(num: number) {
@@ -77,10 +79,17 @@ export class ParserShow extends React.Component<any, any> {
     }
 
     showStack(stack: number[]) {
-        var vmap = this.data.loader.vmap
         var s = []
         for (var i of stack) {
             s.push(i+ ' ')
+        }
+        return s
+    }
+    showNodeStack(stack: number[]) {
+        var vmap = this.data.loader.vmap
+        var s = []
+        for (var i of stack) {
+            s.push(vmap.find(i)+ ' ')
         }
         return s
     }
@@ -112,7 +121,8 @@ export class ParserShow extends React.Component<any, any> {
                 <h1>{str}</h1>
                 <br/><hr/><br/>
                 <h3>状态栈</h3>
-                <div>{ this.showStack(this.state.stack) }</div>
+                <h2>{ this.showStack(this.state.stack) }</h2>
+                <h2>{ this.showNodeStack(this.state.nodestack) }</h2>
                 <br/><hr/><br/>
                 <ButtonGroup size="large">
                   <Button type="primary" onClick={this.backward.bind(this)}>

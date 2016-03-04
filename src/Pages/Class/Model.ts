@@ -11,6 +11,7 @@ export class Core {
             l.next   = json[item].next
             l.action = json[item].action
             l.stack  = json[item].stack
+            l.nodestack = json[item].nodestack
             this.list.push(l)
         }
         return this
@@ -22,4 +23,5 @@ export class line {
     public next: number;
     public action: number;
     public stack: number[];
+    public nodestack: number[];
 }
