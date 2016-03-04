@@ -29,15 +29,15 @@ export class ParserShow extends React.Component<any, any> {
     backward(): void {
         var new_num = this.state.num - 1 < 0 ? 0 : this.state.num - 1
         var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
+        this.setState({state: this.list[this.state.num].state})
         this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
-        this.setState({state: this.list[new_num].state})
     }
 
     forward(): void {
         var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
         var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
+        this.setState({state: this.list[this.state.num].state})
         this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
-        this.setState({state: this.list[new_num].state})
     }
 
     play(): void {
@@ -50,7 +50,7 @@ export class ParserShow extends React.Component<any, any> {
     }
 
     rollback(): void {
-
+        this.setState({num: 0, onPlay: false, slist: [], stack: [], state: undefined})
     }
 
     render_line(num: number) {
