@@ -8,7 +8,7 @@ require('graphviz.svg');
 
 export class LexDfa extends React.Component<any, any> {
     private url: string;
-
+    private dfa;
     constructor(props) {
         super(props)
         this.url = props.url;
@@ -19,11 +19,23 @@ export class LexDfa extends React.Component<any, any> {
             <div ref='gv-graph' className='gv-graph' />
         </div>
     }
+
+    componentWillUpdate(nextProps, nextState) {
+        var $set = jquery()
+        if (nextProps.show != undefined)
+            $set = jquery('[data-name="state' + nextProps.show + '"]')
+        this.dfa.highlight($set, true)
+        this.dfa.colorMainElement($set)
+        this.dfa.bringToFront($set)
+    }
+
     componentDidMount() {
+        var that = this
         jquery(this.refs['gv-graph']).graphviz({
             url: this.url,
             ready: function() {
                 var gv = this
+                that.dfa = gv
                 gv.nodes().click(function () {
                     var $set = jquery()
                     $set.push(this)

@@ -22,23 +22,26 @@ export class ParserShow extends React.Component<any, any> {
         this.data = this.props.data
         this.bnf_list = this.data.loader.bnf_list
         this.list = this.data.loader.core.list
-        this.state = {num: 0, onPlay: false, slist: []}
+        this.state = {num: 0, onPlay: false, slist: [], stack: []}
         this.render_line = this.render_line.bind(this)
     }
 
     backward(): void {
         var new_num = this.state.num - 1 < 0 ? 0 : this.state.num - 1
-        this.setState({num: new_num, slist: this.render_line(new_num)})
+        var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
+        this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
+        this.setState({state: this.list[new_num].state})
     }
 
     forward(): void {
         var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
-        this.setState({num: new_num, slist: this.render_line(new_num)})
+        var s = this.state.num - 1 < 0 ? [] : this.list[ this.state.num - 1].stack
+        this.setState({num: new_num, slist: this.render_line(new_num), stack: s})
+        this.setState({state: this.list[new_num].state})
     }
 
     play(): void {
         this.setState({onPlay: true})
-
     }
 
     pause(): void {
@@ -73,6 +76,15 @@ export class ParserShow extends React.Component<any, any> {
         return l
     }
 
+    showStack(stack: number[]) {
+        var vmap = this.data.loader.vmap
+        var s = []
+        for (var i of stack) {
+            s.push(i+ ' ')
+        }
+        return s
+    }
+
     render() {
         if (this.state.num < this.list.length) {
             var next = this.list[this.state.num].next
@@ -91,13 +103,16 @@ export class ParserShow extends React.Component<any, any> {
         }
 
         return <Row>
-            <Col span="18"><LexDfa url={this.data.svgfile} /></Col>
+            <Col span="18"><LexDfa url={this.data.svgfile} show={this.state.state} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
                 <h3>BNF列表</h3>
                 <ShowList data={this.bnf_list.render()} />
                 <br/><hr/><br/>
                 <h3>下一个Token：</h3>
                 <h1>{str}</h1>
+                <br/><hr/><br/>
+                <h3>状态栈</h3>
+                <div>{ this.showStack(this.state.stack) }</div>
                 <br/><hr/><br/>
                 <ButtonGroup size="large">
                   <Button type="primary" onClick={this.backward.bind(this)}>
