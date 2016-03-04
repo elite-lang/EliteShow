@@ -58,6 +58,10 @@ export class BnfList {
         return this
     }
 
+    find(index: number) {
+        return this.data[index]
+    }
+
     render_all(list: Bnf[]) {
         var ans = []
         for (var key in list)

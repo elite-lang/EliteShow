@@ -14,6 +14,7 @@ export class Vmap {
             map[item.key] = item.value
             this.RMap[item.value] = item.key
         }
+        this.RMap[0] = '$'
     }
 
     loadJson(json: any) {

@@ -14,6 +14,10 @@ export class GotoMap {
         return this
     }
 
+    find(state: number, next: number): number {
+        return this.Goto[state][next]
+    }
+
     private getChar(v): string {
         if (v != undefined)
             return String.fromCharCode(v)

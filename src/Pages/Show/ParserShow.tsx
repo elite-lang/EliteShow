@@ -8,12 +8,13 @@ import { VisTree } from '../Show/VisTree';
 import {App} from '../Class/app';
 import {BnfList} from '../Class/bnfList';
 import {Core, line} from '../Class/Model';
+const Button = require('antd/lib/button');
+const Icon = require('antd/lib/icon');
+const ButtonGroup = Button.Group;
 
 export class ParserShow extends React.Component<any, any> {
     private data: App;
     private bnf_list: BnfList;
-
-    private num: number;
     private list: line[];
 
     constructor(props) {
@@ -21,12 +22,74 @@ export class ParserShow extends React.Component<any, any> {
         this.data = this.props.data
         this.bnf_list = this.data.loader.bnf_list
         this.list = this.data.loader.core.list
-        this.num = 0
+        this.state = {num: 0, onPlay: false, slist: []}
+        this.render_line = this.render_line.bind(this)
+    }
+
+    backward(): void {
+        var new_num = this.state.num - 1 < 0 ? 0 : this.state.num - 1
+        this.setState({num: new_num, slist: this.render_line(new_num)})
+    }
+
+    forward(): void {
+        var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
+        this.setState({num: new_num, slist: this.render_line(new_num)})
+    }
+
+    play(): void {
+        this.setState({onPlay: true})
+
+    }
+
+    pause(): void {
+        this.setState({onPlay: false})
+
+    }
+
+    rollback(): void {
+
+    }
+
+    render_line(num: number) {
+        var vmap = this.data.loader.vmap
+        var goto = this.data.loader.goto_map
+        var bnf = this.data.loader.bnf_list
+        var l = []
+        for (var i=0; i<num; i++) {
+            var state = this.list[i].state
+            var next = this.list[i].next
+            var action = this.list[i].action
+            var str = 'state: ' + state + '    '
+            if (action == 97)
+                str += 'accept'
+            else if (action == 114)
+                str += 'reduce'
+            else if (action == 115)
+                str += 'shift   ' + vmap.find(next) + '  (' + next + ')'
+            l.push(<div>
+                <p>{str}</p>
+            </div>)
+        }
+        return l
     }
 
     render() {
-        var index = this.list[this.num].next
-        var str = this.data.loader.vmap.find(index) + '  ' + index
+        if (this.state.num < this.list.length) {
+            var next = this.list[this.state.num].next
+            var str = this.data.loader.vmap.find(next) + '  ' + next
+        } else
+            var str = ''
+        var mainBtn;
+        if (!this.state.onPlay) {
+            mainBtn = <Button type="primary" onClick={this.play.bind(this)}>
+              <Icon type="caret-circle-right" />
+            </Button>
+        } else {
+            mainBtn = <Button type="primary" onClick={this.pause.bind(this)}>
+              <Icon type="pause-circle" />
+            </Button>
+        }
+
         return <Row>
             <Col span="18"><LexDfa url={this.data.svgfile} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
@@ -36,7 +99,19 @@ export class ParserShow extends React.Component<any, any> {
                 <h3>下一个Token：</h3>
                 <h1>{str}</h1>
                 <br/><hr/><br/>
-                <ShowList />
+                <ButtonGroup size="large">
+                  <Button type="primary" onClick={this.backward.bind(this)}>
+                    <Icon type="step-backward" />
+                  </Button>
+                  {mainBtn}
+                  <Button type="primary" onClick={this.forward.bind(this)}>
+                    <Icon type="step-forward" />
+                  </Button>
+                  <Button>
+                    <Icon type="rollback" onClick={this.rollback.bind(this)} />
+                  </Button>
+                </ButtonGroup>
+                <ShowList data={this.state.slist}/>
             </Col>
         </Row>
     }

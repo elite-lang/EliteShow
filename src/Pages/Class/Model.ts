@@ -7,6 +7,7 @@ export class Core {
         console.log(json)
         for (var item in json) {
             var l = new line()
+            l.state  = json[item].state
             l.next   = json[item].next
             l.action = json[item].action
             l.stack  = json[item].stack
@@ -17,6 +18,7 @@ export class Core {
 }
 
 export class line {
+    public state: number;
     public next: number;
     public action: number;
     public stack: number[];
