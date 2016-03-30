@@ -48,7 +48,7 @@ export class ShowPage extends React.Component<any, any> {
                 <h1>过程展示</h1>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={this.tabContent[0]} key="1"><Row>
-                        <Col span="18"><LexDfa url='img/fsm.svg' /></Col>
+                        <Col span="18"><LexDfa url={this.data.cmd_runner.svgfile_lex} /></Col>
                         <Col span="6" style={{padding: '10px 15px'}}>
                             <h3>正则式列表</h3>
                             <ShowList />

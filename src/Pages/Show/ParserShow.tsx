@@ -112,7 +112,7 @@ export class ParserShow extends React.Component<any, any> {
         }
 
         return <Row>
-            <Col span="18"><LexDfa url={this.data.svgfile} show={this.state.state} /></Col>
+            <Col span="18"><LexDfa url={this.data.cmd_runner.svgfile_parser} show={this.state.state} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
                 <h3>BNF列表</h3>
                 <ShowList data={this.bnf_list.render()} />

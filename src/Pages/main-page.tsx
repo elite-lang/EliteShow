@@ -12,7 +12,6 @@ import { CodePage } from './code-page';
 import { ShowPage } from './show-page';
 import { SettingPage } from "./setting-page";
 import { AboutPage } from "./about-page";
-
 import { AppData, App } from "./Class/app";
 
 class MainPage extends React.Component<any, AppData> {

@@ -9,10 +9,10 @@ export class Cmd {
     private file_path  : string;
     private lex_path   : string;
     private parser_path: string;
-    private gvfile_lex     : string;
-    private svgfile_lex    : string;
-    private gvfile_parser  : string;
-    private svgfile_parser : string;
+    public  gvfile_lex     : string;
+    public  svgfile_lex    : string;
+    public  gvfile_parser  : string;
+    public  svgfile_parser : string;
 
     constructor(build_path:string, src_path:string, file_path:string,
                 lex_path:string, parser_path:string, gvfile_lex:string, gvfile_parser:string) {
@@ -30,15 +30,15 @@ export class Cmd {
     build(callback: () => any) {
         var cmd = ['elite', '-i', this.src_path, '-d', this.build_path,
                     '-l', this.lex_path, '-p', this.parser_path, '--show']
-        this.svgfile_lex = this.dot(this.gvfile_lex)
-        this.svgfile_parser = this.dot(this.gvfile_parser)
+        this.svgfile_lex = this.dot(this.gvfile_lex, null)
+        this.svgfile_parser = this.dot(this.gvfile_parser, null)
         this.run_cmd(cmd, callback)
     }
     run(callback: () => any) {
         this.run_cmd([this.file_path], callback)
     }
 
-    dot(gvfile, callback: () => any = null) {
+    dot(gvfile, callback: () => any) {
         var cmd = ['dot', '-Tsvg', gvfile, '-o', gvfile + '.svg']
         this.run_cmd(cmd, callback)
         return gvfile + '.svg'
