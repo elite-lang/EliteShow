@@ -19,6 +19,7 @@ export class JsonLoader {
 
     loadAll() : void {
         var json_data = this.loadJson(this.path)
+        if (json_data == undefined || json_data == null) return;
         this.bnf_list = new BnfList().loadJson(json_data.bnf)
         this.goto_map = new GotoMap().loadJson(json_data.table)
         this.vmap     = new Vmap().loadJson(json_data.vmap)
@@ -26,10 +27,9 @@ export class JsonLoader {
     }
 
     loadJson(path: string) {
-        var data = fs.readFileSync(path, 'utf8')
-        var ans = null;
         try{
-            ans = JSON.parse(data)
+            var data = fs.readFileSync(path, 'utf8')
+            var ans = JSON.parse(data)
         } catch(e) {
             console.log(e)
         }

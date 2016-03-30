@@ -28,11 +28,10 @@ export class ShowPage extends React.Component<any, any> {
     constructor(props) {
         super(props)
         this.data = this.props.data
+        this.data.loadJson()
         this.bnf_list = this.data.loader.bnf_list
         this.goto_map = this.data.loader.goto_map
         this.vmap = this.data.loader.vmap
-
-
     }
 
     private tabContent = [

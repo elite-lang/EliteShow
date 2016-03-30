@@ -31,8 +31,6 @@ export class App implements AppData {
     private update : ()=>any;
     cmd_runner: Cmd;
     loader: JsonLoader;
-    gvfile: string;
-    svgfile: string;
     llvmIRdata: string;
 
     constructor(update: ()=>any) {
@@ -48,10 +46,10 @@ export class App implements AppData {
         this.exe_path        = path.join(this.app_path, 'build', 'main')
         this.build_path      = path.join(this.app_path, 'build')
         this.json_path       = path.join(this.app_path, 'build', 'parser.json')
-        this.gvfile          = path.join(this.app_path, 'build', 'parser.gv')
-        this.svgfile         = path.join(this.app_path, 'build', 'parser.svg')
+        var gvfile_lex       = path.join(this.app_path, 'build', 'lex.gv')
+        var gvfile_parser    = path.join(this.app_path, 'build', 'parser.gv')
         this.cmd_runner = new Cmd(this.build_path, this.src_path, this.exe_path,
-                                  this.lex_cfg_path, this.parser_cfg_path, this.gvfile, this.svgfile);
+                                  this.lex_cfg_path, this.parser_cfg_path, gvfile_lex, gvfile_parser);
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
         console.log(this.app_path)
@@ -83,6 +81,9 @@ export class App implements AppData {
             that.code_data = data
         });
 
+    }
+
+    public loadJson() {
         this.loader = new JsonLoader(this.json_path);
         this.loader.loadAll();
 
@@ -90,7 +91,10 @@ export class App implements AppData {
             if(err) return
             this.llvmIRdata = data
         });
+
+        return this.loader;
     }
+
     public saveAll() {
         console.log(this.lex_cfg)
         console.log(this.parser_cfg)

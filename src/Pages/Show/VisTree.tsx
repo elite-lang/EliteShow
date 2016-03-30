@@ -42,9 +42,8 @@ export class VisTree extends React.Component<any, any> {
     private static defaultProps = {
           graph: VisTree.data,
           identifier: uuid.v4(),
-          style: {width:"100%",height:"100%"}
+          style: {width:"100%",height:"600px"}
     };
-
 
     changeMode(event) {
       this.setState({hierarchical: !this.state.hierarchical});

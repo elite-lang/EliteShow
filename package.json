@@ -94,6 +94,7 @@
   },
   "scripts": {
     "preinstall": "npm prune",
+    "install": "npm install && tsd install",
     "start": "gulp",
     "package": "gulp build && electron-packager ./app \"$npm_package_productName\" --overwrite --platform=linux --arch=x64 --version=$npm_package_electronVersion --out=./Applications --icon=./elite.ico",
     "package-win32": "gulp build && electron-packager ./app \"$npm_package_productName\" --overwrite --platform=win32 --arch=x64 --version=$npm_package_electronVersion --out=./Applications --icon=./elite.ico",

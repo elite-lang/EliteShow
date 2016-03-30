@@ -9,18 +9,20 @@ export class Cmd {
     private file_path  : string;
     private lex_path   : string;
     private parser_path: string;
-    private gvfile     : string;
-    private svgfile    : string;
+    private gvfile_lex     : string;
+    private svgfile_lex    : string;
+    private gvfile_parser  : string;
+    private svgfile_parser : string;
 
     constructor(build_path:string, src_path:string, file_path:string,
-                lex_path:string, parser_path:string, gvfile:string, svgfile:string) {
-        this.build_path  = build_path;
-        this.src_path    = src_path;
-        this.file_path   = file_path;
-        this.lex_path    = lex_path;
-        this.parser_path = parser_path;
-        this.gvfile      = gvfile;
-        this.svgfile     = svgfile;
+                lex_path:string, parser_path:string, gvfile_lex:string, gvfile_parser:string) {
+        this.build_path    = build_path;
+        this.src_path      = src_path;
+        this.file_path     = file_path;
+        this.lex_path      = lex_path;
+        this.parser_path   = parser_path;
+        this.gvfile_lex    = gvfile_lex;
+        this.gvfile_parser = gvfile_parser;
         this.build = this.build.bind(this)
         this.run   = this.run.bind(this)
     }
@@ -28,16 +30,18 @@ export class Cmd {
     build(callback: () => any) {
         var cmd = ['elite', '-i', this.src_path, '-d', this.build_path,
                     '-l', this.lex_path, '-p', this.parser_path, '--show']
-        this.dot(null)
+        this.svgfile_lex = this.dot(this.gvfile_lex)
+        this.svgfile_parser = this.dot(this.gvfile_parser)
         this.run_cmd(cmd, callback)
     }
     run(callback: () => any) {
         this.run_cmd([this.file_path], callback)
     }
 
-    dot(callback: () => any) {
-        var cmd = ['dot', '-Tsvg', this.gvfile, '-o', this.svgfile]
+    dot(gvfile, callback: () => any = null) {
+        var cmd = ['dot', '-Tsvg', gvfile, '-o', gvfile + '.svg']
         this.run_cmd(cmd, callback)
+        return gvfile + '.svg'
     }
 
     run_cmd(shell, callback: () => any) {
