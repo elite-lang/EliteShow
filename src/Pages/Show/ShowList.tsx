@@ -6,7 +6,6 @@ interface ShowListState {
 }
 
 export class ShowList extends React.Component<any, ShowListState> {
-
     constructor(props) {
         super(props)
     }
