@@ -29,7 +29,7 @@ export class GotoMap {
         ans.key = i
         for (var j in row) {
             var c = this.getChar(this.Action[i][j])
-            if (c == 'a') ans[j] = 'acc'
+            if (c == 'a') ans[j] = 'a'
             else ans[j] = c + (row[j] != -1 ? row[j] : "-")
         }
         return ans

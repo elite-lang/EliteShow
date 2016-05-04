@@ -1,5 +1,6 @@
 "use strict";
 import * as React from 'react';
+const Table = require('antd/lib/table');
 
 
 export class Vmap {
@@ -30,45 +31,31 @@ export class Vmap {
         return this.RMap[num];
     }
 
-    render_all(data) {
+    private static vt_cols = [
+        {title: 'Vt映射表', width:30, dataIndex:'value'},
+        {title: '值', width:30, dataIndex:'key'}
+    ]
+    private static const_cols = [
+        {title: 'Vt映射表', width:30, dataIndex:'value'},
+        {title: '值', width:30, dataIndex:'key'}
+    ]
+    private static vn_cols = [
+        {title: 'Vt映射表', width:30, dataIndex:'value'},
+        {title: '值', width:30, dataIndex:'key'}
+    ]
+
+    gen_data(data) {
         var ans = []
         for (var i in data)
-            ans.push(<tr key={data[i]}><td>{i}</td><td>{data[i]}</td></tr>)
+            ans.push({key:data[i],value:i})
         return ans
     }
 
     render() {
-        return  <div className='ant-table'>
-        <table>
-            <thead>
-                <tr>
-                <th>Vt　映射表</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.render_all(this.VtMap)}
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                <th>常量映射表</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.render_all(this.ConstMap)}
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                <th>Vn　映射表</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.render_all(this.VnMap)}
-            </tbody>
-        </table>
+        return <div>
+            <Table columns={Vmap.vt_cols} dataSource={this.gen_data(this.VtMap)} bordered pagination={false} />
+            <Table columns={Vmap.const_cols} dataSource={this.gen_data(this.ConstMap)} bordered pagination={false} />
+            <Table columns={Vmap.vn_cols} dataSource={this.gen_data(this.VnMap)} bordered pagination={false} />
         </div>
     }
 }
