@@ -1,6 +1,6 @@
 "use strict";
 import * as React from 'react';
-
+const Table = require('antd/lib/table');
 
 export class GotoMap {
     private Action;
@@ -25,34 +25,30 @@ export class GotoMap {
     }
 
     render_row(row, i) {
-        var ans = []
-        ans.push(<td key={-1}>{i}</td>)
+        var ans = {key:0}
+        ans.key = i
         for (var j in row)
-            ans.push(
-                <td key={j}>{ this.getChar(this.Action[i][j]) +  (row[j] != -1 ? row[j] : "") }</td>
-            );
+            ans[j] = this.getChar(this.Action[i][j]) +  (row[j] != -1 ? row[j] : "-")
         return ans
     }
 
-    render_all(Goto) {
-        var ans = []
-        for (var i in Goto)
-            ans.push(<tr key={i}>{this.render_row(Goto[i], i)}</tr>)
-        return ans
+    gen_columns() {
+        var col = []
+        col.push({title:'标号', dataIndex:'key', key:-1, width:30})
+        for (var i in this.Goto)
+            col.push({title:i, dataIndex:i, key:i, width:30 })
+        return col
+    }
+
+    gen_data() {
+        var data = []
+        for (var i in this.Goto)
+            data.push(this.render_row(this.Goto[i], i))
+        return data
     }
 
     render() {
-        return <div className='ant-table'>
-        <table>
-            <thead>
-                <tr>
-                <th>表头</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.render_all(this.Goto)}
-            </tbody>
-        </table></div>
+        return <Table columns={this.gen_columns()} dataSource={this.gen_data()} bordered useFixedHeader />
     }
 
 }
