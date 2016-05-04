@@ -27,15 +27,18 @@ export class GotoMap {
     render_row(row, i) {
         var ans = {key:0}
         ans.key = i
-        for (var j in row)
-            ans[j] = this.getChar(this.Action[i][j]) +  (row[j] != -1 ? row[j] : "-")
+        for (var j in row) {
+            var c = this.getChar(this.Action[i][j])
+            if (c == 'a') ans[j] = 'acc'
+            else ans[j] = c + (row[j] != -1 ? row[j] : "-")
+        }
         return ans
     }
 
     gen_columns() {
         var col = []
         col.push({title:'标号', dataIndex:'key', key:-1, width:30})
-        for (var i in this.Goto)
+        for (var i in this.Goto[0])
             col.push({title:i, dataIndex:i, key:i, width:30 })
         return col
     }
