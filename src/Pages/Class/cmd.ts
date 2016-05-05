@@ -1,7 +1,6 @@
 "use strict";
-
-var cp = require('child_process')
-console.log("cp", cp)
+var remote = require("remote");
+var cp = remote.require('child_process')
 
 export class Cmd {
     private build_path : string;
@@ -27,34 +26,43 @@ export class Cmd {
         this.run   = this.run.bind(this)
     }
 
-    build(callback: () => any) {
-        var cmd = ['elite', '-i', this.src_path, '-d', this.build_path,
+    build(callback: (boolean) => any) {
+        var cmd = ['-i', this.src_path, '-d', this.build_path,
                     '-l', this.lex_path, '-p', this.parser_path, '--show']
-        this.svgfile_lex = this.dot(this.gvfile_lex, null)
-        this.svgfile_parser = this.dot(this.gvfile_parser, null)
-        this.run_cmd(cmd, callback)
+        this.run_cmd('elite', cmd, (code) => {
+            if (!code) return callback(code)
+            console.log('elite:'+code)
+            var l = this.dot(this.gvfile_lex)
+            var p = this.dot(this.gvfile_parser)
+            if (l) this.svgfile_lex = l as string
+            if (p) this.svgfile_parser = p as string
+            if (callback!=null) {
+                if (l==false || p==false) return callback(false)
+                return callback(code)
+            }
+        })
     }
-    run(callback: () => any) {
-        this.run_cmd([this.file_path], callback)
+    run(callback: (boolean) => any) {
+        this.run_cmd(this.file_path, [], callback)
     }
 
-    dot(gvfile, callback: () => any) {
-        var cmd = ['dot', '-Tsvg', gvfile, '-o', gvfile + '.svg']
-        this.run_cmd(cmd, callback)
+    dot(gvfile) : any {
+        var args = ['-Tsvg', gvfile, '-o', gvfile + '.svg']
+        var ret = cp.spawnSync('dot', args)
+        if (ret.status != 0) return false
         return gvfile + '.svg'
     }
-
-    run_cmd(shell, callback: () => any) {
-        cp.exec(this.join(shell),
+    run_cmd(shell, args, callback: (boolean) => any) {
+        var cmd = cp.execFile(shell, args, {env:remote.process.env},
             (error, stdout, stderr) => {
-                console.log(stdout);
-                if (error != 0) {
-                    console.log(error);
-                    console.log(stderr);
-                }
-                if (callback != null)
-                    callback()
-            })
+            console.log(stdout);
+            if (error != 0) {
+                console.log(error);
+                console.log(stderr);
+            }
+            if (callback != null)
+                callback(error != 0)
+        })
     }
     join(args: string[]) {
         var ans = ''
@@ -64,5 +72,4 @@ export class Cmd {
         }
         return ans
     }
-
 }

@@ -62,15 +62,19 @@ export class CodeEditor extends React.Component<_CodeEditorProps, any> {
                 </div>
                 <div className="code-page-edit">
                     <AceEditor
-                       width="100%"
-                       height="100%"
-                       mode={this.props.mode}
-                       theme="monokai"
-                       name={this.props.name}
-                       onChange={this.props.onChange}
-                       value={this.props.data}
-                       fontSize={18}
-                       editorProps={{$blockScrolling: true}}
+                        width="100%"
+                        height="100%"
+                        mode={this.props.mode}
+                        theme="monokai"
+                        name={this.props.name}
+                        onChange={this.props.onChange}
+                        value={this.props.data}
+                        fontSize={18}
+                        tabSize={4}
+                        editorProps={{$blockScrolling: true}}
+                        onLoad={(editor) => {
+                            editor.getSession().setUseWorker(false);
+                        }}
                      />
                 </div>
             </div>

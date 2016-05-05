@@ -125,11 +125,11 @@ export class ParserShow extends React.Component<any, any> {
                 <h2>{ this.showNodeStack(this.state.nodestack) }</h2>
                 <br/><hr/><br/>
                 <ButtonGroup size="large">
-                  <Button type="primary" onClick={this.backward.bind(this)}>
+                  <Button onClick={this.backward.bind(this)}>
                     <Icon type="step-backward" />
                   </Button>
                   {mainBtn}
-                  <Button type="primary" onClick={this.forward.bind(this)}>
+                  <Button onClick={this.forward.bind(this)}>
                     <Icon type="step-forward" />
                   </Button>
                   <Button>

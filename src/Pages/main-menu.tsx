@@ -8,6 +8,8 @@ const Divider = Menu.Divider;
 const SubMenu = Menu.SubMenu;
 const Dropdown = require('antd/lib/dropdown');
 const Button = require('antd/lib/button');
+const message = require('antd/lib/message');
+const notification = require('antd/lib/notification');
 import {App} from './Class/app';
 
 
@@ -18,7 +20,8 @@ interface _MenuProps {
 
 interface _MenuState { // 用接口会比较方便
     current : string,
-    isCompiling: boolean
+    isCompiling: boolean,
+    disableShow: boolean
 }
 
 // 这里必须要导出类
@@ -41,10 +44,14 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
     }
 
     getInitial(): _MenuState {
-        return {current: '1', isCompiling: false} as _MenuState;
+        return {current: '1', isCompiling: false, disableShow: true} as _MenuState;
     }
     handleClick(e) {
         if (e.key == '0') {
+            return
+        }
+        if (this.state.disableShow && e.key == '3') {
+            message.info('您需要先构建项目');
             return
         }
         this.setState({current: e.key} as _MenuState);
@@ -57,10 +64,20 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         }
     }
     onBuild() {
-        var that = this
         this.app.saveAll()
-        this.app.cmd_runner.build(() => {
-            that.setState({isCompiling: false} as _MenuState);
+        this.app.cmd_runner.build((code) => {
+            if (code) {
+                this.setState({current:'3', isCompiling: false, disableShow: false} as _MenuState);
+                notification.success({
+                    message: '构建成功',
+                    description: '项目构建成功于'+this.getDateTime()
+                });
+                this.prop.onUpdate('3')
+            } else
+                notification.error({
+                    message: '构建失败',
+                    description: '项目构建失败于'+this.getDateTime()
+                })
         })
         this.setState({isCompiling: true} as _MenuState);
     }
@@ -116,4 +133,21 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
       <Divider/>
       <Item key="6">退出</Item>
     </Menu></div>;
+
+    getDateTime() {
+        var date = new Date();
+        var hour:any = date.getHours()
+        hour = (hour < 10 ? "0" : "") + hour;
+        var min:any  = date.getMinutes();
+        min = (min < 10 ? "0" : "") + min;
+        var sec:any  = date.getSeconds();
+        sec = (sec < 10 ? "0" : "") + sec;
+        var year:any = date.getFullYear();
+        var month:any = date.getMonth() + 1;
+        month = (month < 10 ? "0" : "") + month;
+        var day:any  = date.getDate();
+        day = (day < 10 ? "0" : "") + day;
+
+        return year + "/" + month + "/" + day + "  " + hour + ":" + min + ":" + sec;
+    }
 }

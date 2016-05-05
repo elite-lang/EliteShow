@@ -28,6 +28,7 @@
         "Class/app.ts",
         "Class/cmd.ts",
         "Class/jsonLoader.ts",
+        "Class/LexModel.ts",
         "Class/Model.ts",
         "about-page.tsx",
         "Class/bnfList.tsx",
