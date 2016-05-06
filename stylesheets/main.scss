@@ -117,3 +117,12 @@ main-popup-menu {
         }
     }
 }
+
+
+.show-list {
+    height: 200px;
+    overflow: auto;
+    p {
+        font-size: 16px;
+    }
+}

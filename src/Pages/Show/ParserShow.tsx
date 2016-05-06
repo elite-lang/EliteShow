@@ -108,7 +108,6 @@ export class ParserShow extends React.Component<any, any> {
               <Icon type="pause-circle" />
             </Button>
         }
-
         return <Row>
             <Col span="18"><LexDfa url={this.data.cmd_runner.svgfile_parser} show={this.state.state} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
