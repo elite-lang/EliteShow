@@ -17,7 +17,7 @@ export class LexShow extends React.Component<any, any> {
             <Col span="18"><LexDfa url={this.data.cmd_runner.svgfile_lex} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
                 <h3>正则式列表</h3>
-                <ShowList />
+                <ShowList data={this.data.lex_loader.getNames()}/>
             </Col>
         </div>
     }

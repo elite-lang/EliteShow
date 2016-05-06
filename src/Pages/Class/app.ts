@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require('path');
 import {Cmd} from './cmd'
 import {JsonLoader} from './jsonLoader';
-
+import {LexModel} from "./LexModel";
 export interface AppData {
     nowPage    : number;
     code_data  : string;
@@ -28,9 +28,11 @@ export class App implements AppData {
     private exe_path : string;
     private build_path : string;
     private json_path : string;
+    private lex_path : string;
     private update : ()=>any;
     cmd_runner: Cmd;
     loader: JsonLoader;
+    lex_loader: LexModel;
     llvmIRdata: string;
 
     constructor(update: ()=>any) {
@@ -46,6 +48,7 @@ export class App implements AppData {
         this.exe_path        = path.join(this.app_path, 'build', 'main')
         this.build_path      = path.join(this.app_path, 'build')
         this.json_path       = path.join(this.app_path, 'build', 'parser.json')
+        this.lex_path        = path.join(this.app_path, 'build', 'lex.json')
         var gvfile_lex       = path.join(this.app_path, 'build', 'lex.gv')
         var gvfile_parser    = path.join(this.app_path, 'build', 'parser.gv')
         this.cmd_runner = new Cmd(this.build_path, this.src_path, this.exe_path,
@@ -85,8 +88,9 @@ export class App implements AppData {
 
     public loadJson() {
         this.loader = new JsonLoader(this.json_path);
+        this.lex_loader = new LexModel(this.lex_path);
         this.loader.loadAll();
-
+        this.lex_loader.loadAll();
         fs.readFile(path.join(this.app_path, 'build', 'main.bc.bitcode'), 'utf-8', (err,data) => {
             if(err) return
             this.llvmIRdata = data

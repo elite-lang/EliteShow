@@ -71,9 +71,7 @@ export class ParserShow extends React.Component<any, any> {
                 str += 'reduce'
             else if (action == 115)
                 str += 'shift   ' + vmap.find(next) + '  (' + next + ')'
-            l.push(<div>
-                <p>{str}</p>
-            </div>)
+            l.push(str)
         }
         return l
     }
@@ -115,7 +113,7 @@ export class ParserShow extends React.Component<any, any> {
             <Col span="18"><LexDfa url={this.data.cmd_runner.svgfile_parser} show={this.state.state} /></Col>
             <Col span="6" style={{padding: '10px 15px'}}>
                 <h3>BNF列表</h3>
-                <ShowList data={this.bnf_list.render()} />
+                <div>{this.bnf_list.render()}</div>
                 <br/><hr/><br/>
                 <h3>下一个Token：</h3>
                 <h1>{str}</h1>

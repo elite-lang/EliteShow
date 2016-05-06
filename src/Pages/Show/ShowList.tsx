@@ -15,8 +15,25 @@ export class ShowList extends React.Component<any, ShowListState> {
     };
 
     render() {
-        return <div>
-            {this.props.data}
-        </div>
+        if (Array.isArray(this.props.data)) {
+            var arr = []
+            var obj = this.props.data as Object
+            for (var i in obj) {
+                arr.push(<p key={i}>{obj[i]}</p>)
+            }
+            return <div>
+                {arr}
+            </div>
+        } else {
+            var arr = []
+            var obj = this.props.data as Object
+            for (var q in obj) {
+                arr.push(<p key={q}>{q+" : "+obj[q]}</p>)
+            }
+            return <div>
+                {arr}
+            </div>
+        }
+
     }
 }
