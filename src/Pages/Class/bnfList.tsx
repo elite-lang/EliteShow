@@ -2,8 +2,8 @@
 import * as React from 'react';
 
 export class Bnf {
-    private source: string;
-    private gen: string[];
+    public source: string;
+    public gen: string[];
 
     constructor(json) {
         this.source = '<' + json.value2.value1 + '>'

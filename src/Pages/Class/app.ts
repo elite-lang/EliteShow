@@ -6,6 +6,8 @@ const path = require('path');
 import {Cmd} from './cmd'
 import {JsonLoader} from './jsonLoader';
 import {LexModel} from "./LexModel";
+import {Settings} from "./settings";
+
 export interface AppData {
     nowPage    : number;
     code_data  : string;
@@ -20,6 +22,9 @@ export class App implements AppData {
     code_data  : string; // 要读入的代码文本元数据
     lex_cfg    : string; // lex配置元数据
     parser_cfg : string; // parser配置元数据
+
+    settings : Settings; // 配置信息
+    setting_path: string;
 
     private app_path : string;
     private parser_cfg_path : string;
@@ -41,6 +46,7 @@ export class App implements AppData {
         this.code_data  = ''
         this.lex_cfg    = ''
         this.parser_cfg = ''
+        this.setting_path    = path.join(app.getPath('userData'), 'settings.json')
         this.app_path        = path.join(app.getPath('userData'), 'workspace')
         this.parser_cfg_path = path.join(this.app_path, 'p.cfg')
         this.lex_cfg_path    = path.join(this.app_path, 'l.cfg')
@@ -56,6 +62,21 @@ export class App implements AppData {
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
         console.log(this.app_path)
+        this.loadSettings()
+    }
+
+    loadSettings() {
+        fs.exists(this.setting_path, (exists) => {
+            if (!exists) {
+                this.settings = {editor_font_size : 18, editor_style : "monokai"} as Settings
+                fs.writeFile(this.setting_path, JSON.stringify(this.settings), 'utf-8', (err) => {
+                    if (err) return console.log(err)
+                    console.log(this.setting_path);
+                });
+            } else {
+                this.settings = JSON.parse(fs.readFileSync(this.setting_path, 'utf-8'))
+            }
+        });
     }
 
     public UpdataData(obj) {

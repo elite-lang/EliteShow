@@ -52,7 +52,7 @@ class MainPage extends React.Component<any, AppData> {
             case 1: return <ConfigPage data={this.app} key="page1" />;
             case 2: return <CodePage data={this.app} key="page2" />;
             case 3: return <ShowPage data={this.app} key="page3" />;
-            case 4: return <SettingPage key="page4" />;
+            case 4: return <SettingPage data={this.app} key="page4" />;
             case 5: return <AboutPage key="page5" />;
         }
     }

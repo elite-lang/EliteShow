@@ -13,6 +13,8 @@ import {GotoMap} from './Class/gotoMap';
 import {Vmap} from './Class/vmap';
 import {ParserShow} from './Show/ParserShow';
 import {LexShow} from './Show/LexShow';
+import {Node} from "./Class/node";
+import {Bnf} from "./Class/bnfList";
 const fs = require("fs");
 var brace  = require('brace');
 var AceEditor  = require('react-ace');
@@ -23,15 +25,17 @@ export class ShowPage extends React.Component<any, any> {
     private bnf_list: BnfList;
     private goto_map: GotoMap;
     private vmap: Vmap;
-
+    private now_step: number;
 
     constructor(props) {
         super(props)
         this.data = this.props.data
+        this.state = {now_step: 0}
         this.data.loadJson()
         this.bnf_list = this.data.loader.bnf_list
         this.goto_map = this.data.loader.goto_map
         this.vmap = this.data.loader.vmap
+        this.onStep = this.onStep.bind(this)
     }
 
     private tabContent = [
@@ -43,6 +47,43 @@ export class ShowPage extends React.Component<any, any> {
       <span><Icon type="code" />生成LLVM-IR</span>,
     ];
 
+    onStep(step: number) {
+        this.setState({now_step: step})
+    }
+
+    make_tree(num: number) {
+        var stack = new Array<Node>()
+        var list = this.data.loader.core.list
+        var vmap = this.data.loader.vmap
+        var goto = this.data.loader.goto_map
+        var bnf = this.data.loader.bnf_list
+        for (var i=0; i<num; i++) {
+            var state = list[i].state
+            var next = list[i].next
+            var action = list[i].action
+            if (action == 114) {
+                var b:Bnf = bnf.find(goto.find(state, next))
+                var n = new Node(b.source)
+                for (var j=0; j<b.gen.length; ++j){
+                    n.add(stack[stack.length-b.gen.length+j])
+                }
+                for (var j=0; j<b.gen.length; ++j){
+                    stack.pop()
+                }
+                stack.push(n)
+                i++
+            }
+            else if (action == 115)
+                stack.push(new Node(vmap.find(next)))
+        }
+        var data_all = {edges:new Array<Node>(), nodes:new Array<Node>()}
+        Node.beginGraph()
+        for (var node of stack) {
+            Node.makeNode(data_all, node, Node.getID())
+        }
+        return data_all
+    }
+
     render() {
         return <div className='show-page-ctx'>
                 <h1>过程展示</h1>
@@ -51,10 +92,10 @@ export class ShowPage extends React.Component<any, any> {
                         <LexShow data={this.data} />
                     </Row></TabPane>
                     <TabPane tab={this.tabContent[1]} key="2">
-                        <ParserShow data={this.data} bnf_list={this.bnf_list} />
+                        <ParserShow data={this.data} onStep={this.onStep} bnf_list={this.bnf_list} />
                     </TabPane>
                     <TabPane tab={this.tabContent[2]} key="3"><Row>
-                        <Col span="18"><VisTree /></Col>
+                        <Col span="18"><VisTree graph={this.make_tree(this.data.loader.core.list.length)} /></Col>
                         <Col span="6" style={{padding: '10px 15px'}}>
                             <ShowList />
                         </Col>

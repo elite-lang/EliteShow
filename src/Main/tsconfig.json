@@ -24,7 +24,7 @@
     "compileOnSave": true,
     "buildOnSave": false,
     "files": [
-        "../../typings/tsd.d.ts",
+        "../../typings/index.d.ts",
         "main.ts"
     ],
     "atom": {

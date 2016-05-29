@@ -17,8 +17,11 @@ export class ParserShow extends React.Component<any, any> {
     private bnf_list: BnfList;
     private list: line[];
 
+    onStep: (step: number) => any
+
     constructor(props) {
         super(props)
+        this.onStep = this.props.onStep
         this.data = this.props.data
         this.bnf_list = this.data.loader.bnf_list
         this.list = this.data.loader.core.list
@@ -36,11 +39,13 @@ export class ParserShow extends React.Component<any, any> {
     backward(): void {
         var new_num = this.state.num - 1 < 0 ? 0 : this.state.num - 1
         this.update(new_num)
+        this.onStep(new_num)
     }
 
     forward(): void {
         var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
         this.update(new_num)
+        this.onStep(new_num)
     }
 
     play(): void {
@@ -68,7 +73,7 @@ export class ParserShow extends React.Component<any, any> {
             if (action == 97)
                 str += 'accept'
             else if (action == 114)
-                str += 'reduce'
+                str += 'reduce   ' + bnf.find(goto.find(state, next)).source
             else if (action == 115)
                 str += 'shift   ' + vmap.find(next) + '  (' + next + ')'
             l.push(str)

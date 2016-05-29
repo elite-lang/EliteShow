@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "antd": "registry:dt/antd#0.12.10+20160326114918",
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "node": "registry:dt/node#6.0.0+20160524002506",
+    "react": "registry:dt/react#0.14.0+20160526134601"
+  }
+}

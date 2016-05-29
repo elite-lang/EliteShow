@@ -6,7 +6,18 @@ var AceEditor  = require('react-ace');
 require('brace/mode/c_cpp')
 require('brace/mode/ini')
 require('brace/mode/lua')
+
 require('brace/theme/monokai')
+require('brace/theme/github')
+require('brace/theme/tomorrow')
+require('brace/theme/kuroir')
+require('brace/theme/twilight')
+require('brace/theme/xcode')
+require('brace/theme/textmate')
+require('brace/theme/solarized_dark')
+require('brace/theme/solarized_light')
+require('brace/theme/terminal')
+
 const Button = require('antd/lib/button');
 const Icon = require('antd/lib/icon');
 const ButtonGroup = Button.Group;
@@ -14,11 +25,14 @@ const fs = require("fs");
 const remote = require('remote');
 const dialog = remote.require('dialog');
 
+import {Settings} from "../Class/settings";
+
 interface _CodeEditorProps {
     name : string;
     title : string;
     data : string;
     mode : string;
+    settings : Settings;
     onChange : (string) => any;
     onUpdate : (any) => any;
 }
@@ -65,11 +79,11 @@ export class CodeEditor extends React.Component<_CodeEditorProps, any> {
                         width="100%"
                         height="100%"
                         mode={this.props.mode}
-                        theme="monokai"
+                        theme={this.props.settings.editor_style}
                         name={this.props.name}
                         onChange={this.props.onChange}
                         value={this.props.data}
-                        fontSize={18}
+                        fontSize={this.props.settings.editor_font_size}
                         tabSize={4}
                         editorProps={{$blockScrolling: true}}
                         onLoad={(editor) => {

@@ -30,12 +30,14 @@ export class ConfigPage extends React.Component<any, any> {
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='left-code-editor' title='词法分析配置'
                             mode='ini'
+                            settings={this.data.settings}
                             data={this.data.lex_cfg} onChange={this.onLeftChange}
                             onUpdate={this.data.UpdataData} />
                     </Col>
                     <Col span='12' className='editor-container'>
                         <CodeEditor name='right-code-editor' title='语法分析配置'
                             mode='lua'
+                            settings={this.data.settings}
                             data={this.data.parser_cfg} onChange={this.onRightChange}
                             onUpdate={this.data.UpdataData} />
                     </Col>
