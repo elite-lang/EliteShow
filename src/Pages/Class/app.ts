@@ -7,6 +7,8 @@ import {Cmd} from './cmd'
 import {JsonLoader} from './jsonLoader';
 import {LexModel} from "./LexModel";
 import {Settings} from "./settings";
+const AdmZip = require('adm-zip');
+const notification = require('antd/lib/notification');
 
 export interface AppData {
     nowPage    : number;
@@ -42,10 +44,8 @@ export class App implements AppData {
 
     constructor(update: ()=>any) {
         this.update = update
-        this.nowPage    = 1
-        this.code_data  = ''
-        this.lex_cfg    = ''
-        this.parser_cfg = ''
+        this.newProject = this.newProject.bind(this)
+        this.newProject()
         this.setting_path    = path.join(app.getPath('userData'), 'settings.json')
         this.app_path        = path.join(app.getPath('userData'), 'workspace')
         this.parser_cfg_path = path.join(this.app_path, 'p.cfg')
@@ -61,8 +61,35 @@ export class App implements AppData {
                                   this.lex_cfg_path, this.parser_cfg_path, gvfile_lex, gvfile_parser);
         this.loadAll = this.loadAll.bind(this)
         this.saveAll = this.saveAll.bind(this)
+        this.saveProject = this.saveProject.bind(this)
+        this.loadProject = this.loadProject.bind(this)
         console.log(this.app_path)
         this.loadSettings()
+    }
+
+    public newProject() {
+        this.nowPage    = 1
+        this.code_data  = ''
+        this.lex_cfg    = ''
+        this.parser_cfg = ''
+    }
+
+    public saveProject(file_path) {
+        console.log(file_path)
+        console.log(this.app_path)
+        var zip = new AdmZip()
+        zip.addLocalFolder(this.app_path)
+        zip.writeZip(file_path)
+        notification.success({
+            message: '项目已保存',
+            description: file_path
+        });
+    }
+
+    public loadProject(file_path) {
+        var zip = new AdmZip(file_path)
+        zip.extractAllTo(this.app_path)
+        this.loadAll()
     }
 
     loadSettings() {
@@ -105,6 +132,7 @@ export class App implements AppData {
             that.code_data = data
         });
 
+
     }
 
     public loadJson() {
@@ -121,9 +149,7 @@ export class App implements AppData {
     }
 
     public saveAll() {
-        console.log(this.lex_cfg)
-        console.log(this.parser_cfg)
-        console.log(this.code_data)
+        fs.writeFile(this.setting_path, JSON.stringify(this.settings), 'utf-8')
 
         fs.writeFile(this.parser_cfg_path, this.parser_cfg, 'utf-8', (err) => {
             if (err) return console.log(err)

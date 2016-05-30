@@ -43,7 +43,7 @@ export class ParserShow extends React.Component<any, any> {
     }
 
     forward(): void {
-        var new_num = this.state.num + 1 > this.list.length ? this.list.length : this.state.num + 1
+        var new_num = this.state.num + 1 >= this.list.length ? this.list.length-1 : this.state.num + 1
         this.update(new_num)
         this.onStep(new_num)
     }

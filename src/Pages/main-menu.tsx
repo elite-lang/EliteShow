@@ -11,7 +11,10 @@ const Button = require('antd/lib/button');
 const message = require('antd/lib/message');
 const notification = require('antd/lib/notification');
 import {App} from './Class/app';
-
+const Modal = require('antd/lib/modal');
+const confirm = Modal.confirm;
+const remote = require('remote');
+const dialog = remote.require('dialog');
 
 interface _MenuProps {
     onUpdate : (string) => any;
@@ -58,8 +61,35 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         this.prop.onUpdate(e.key)
     }
     handleMainBtn(e) {
-        if (e.key == '6') {
-            console.log("on Exit");
+        var app = this.app
+        console.dir(app)
+        if (e.key == '1') {
+            confirm({
+                title: '新建项目',
+                content: '新建项目将会丢失未保存的内容，您确认新建项目吗？',
+                onOk: function() {
+                    app.newProject()
+                },
+                onCancel: function() {}
+            });
+        }
+
+        if (e.key == '2') {
+            dialog.showOpenDialog((fileNames) => {
+                if (fileNames === undefined) return;
+                var fileName = fileNames[0];
+                app.loadProject(fileName)
+            });
+        }
+
+        if (e.key == '3') {
+            dialog.showSaveDialog((fileName) => {
+                if (fileName === undefined) return;
+                app.saveProject(fileName)
+            });
+        }
+
+        if (e.key == '4') {
             window.close();
         }
     }
@@ -89,6 +119,14 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
     }
 
     render() {
+        var mainMenu = <div><Menu onClick={this.handleMainBtn} className='main-popup-menu' mode="vertical">
+          <Item key="1">新项目...</Item>
+          <Item key="2">打开项目...</Item>
+          <Item key="3">保存项目...</Item>
+          <Divider/>
+          <Item key="4">退出</Item>
+        </Menu></div>;
+        
         return <div className='main-menu-container'>
             <Menu onClick={this.handleClick}
                      selectedKeys={[this.state.current]}
@@ -111,7 +149,7 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
                     </Button>
                 </div>
             </Menu>
-            <Dropdown overlay={this.mainMenu} >
+            <Dropdown overlay={mainMenu} >
                 <div className='main-menu-btn-container'>
                     <Button type="primary" className='main-menu-btn'>
                         <Icon type="bars" /> 主菜单 &nbsp; <Icon type="up" />
@@ -121,18 +159,6 @@ export class MainMenu extends React.Component<_MenuProps, _MenuState> {
         </div>;
     }
 
-    private mainMenu = <div><Menu onClick={this.handleMainBtn} className='main-popup-menu' mode="vertical">
-      <Item key="0">新项目...</Item>
-      <Item key="1">打开项目...</Item>
-      <Item key="2">保存项目...</Item>
-      <SubMenu key="sub1" title={<span><Icon type="export" /><span>导出</span></span>}>
-        <Item key="3">选项1</Item>
-        <Item key="4">选项2</Item>
-        <Item key="5">选项3</Item>
-      </SubMenu>
-      <Divider/>
-      <Item key="6">退出</Item>
-    </Menu></div>;
 
     getDateTime() {
         var date = new Date();

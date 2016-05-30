@@ -50,18 +50,24 @@ export class CodeEditor extends React.Component<_CodeEditorProps, any> {
             var fileName = fileNames[0];
             fs.readFile(fileName, 'utf-8', (err,data) => {
                 if(err){
-                    console.log("error")
+                    console.log("error to load file:"+ fileName)
                 }else{
-                    console.log(data)
-                    console.log(that)
-                    that.props.data = data
+                    this.props.onChange(data)
                     that.props.onUpdate({})
                 }
             });
         });
     }
     onSaveFile() {
-        // console.log(dialog.showSaveDialog());
+        var that = this
+        dialog.showSaveDialog((fileName) => {
+            if (fileName === undefined) return;
+            fs.writeFile(fileName, this.props.data, 'utf-8', (err) => {
+                if(err){
+                    console.log("error to save file:"+ fileName)
+                }
+            });
+        });
     }
 
     render() {
