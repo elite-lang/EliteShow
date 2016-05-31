@@ -52,8 +52,9 @@ export class CodeEditor extends React.Component<_CodeEditorProps, any> {
                 if(err){
                     console.log("error to load file:"+ fileName)
                 }else{
-                    this.props.onChange(data)
-                    that.props.onUpdate({})
+                    that.props.onChange(data)
+                    var editor = brace.edit(that.props.name)
+                    editor.setValue(data, 0)
                 }
             });
         });
